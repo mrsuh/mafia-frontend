@@ -1,4 +1,4 @@
-# MAFIA backend
+# MAFIA frontend
 
 Party game modelling a conflict between an informed minority, the mafia, and an uninformed majority, the innocents
 
