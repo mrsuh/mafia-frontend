@@ -1,6 +1,6 @@
 'use strict';
 
-var Audio = function() {
+var Sound = function() {
     this.seed = '?v=' + Math.random();
 
     this.game_start = document.createElement('AUDIO');
@@ -61,97 +61,97 @@ var Audio = function() {
     this.sheriff_end.src = 'audio/sheriff_end.mp3' + this.seed;
 };
 
-Audio.prototype.gameStart = function(callback) {
+Sound.prototype.gameStart = function(callback) {
     this.game_start.addEventListener('ended', callback);
     this.game_start.play();
 };
 
-Audio.prototype.citizensGreetingStart = function(callback) {
+Sound.prototype.citizensGreetingStart = function(callback) {
     this.citizens_greeting_start.addEventListener('ended', callback);
     this.citizens_greeting_start.play();
 };
 
-Audio.prototype.citizensGreetingEnd = function(callback) {
+Sound.prototype.citizensGreetingEnd = function(callback) {
     this.citizens_greeting_end.addEventListener('ended', callback);
     this.citizens_greeting_end.play();
 };
 
-Audio.prototype.dayStart = function(callback) {
+Sound.prototype.dayStart = function(callback) {
     this.day_start.addEventListener('ended', callback);
     this.day_start.play();
 };
 
-Audio.prototype.nightStart = function(callback) {
+Sound.prototype.nightStart = function(callback) {
     this.night_start.addEventListener('ended', callback);
     this.night_start.play();
 };
 
-Audio.prototype.mafiaGreetingStart = function(callback) {
+Sound.prototype.mafiaGreetingStart = function(callback) {
     this.mafia_greeting_start.addEventListener('ended', callback);
     this.mafia_greeting_start.play();
 };
 
-Audio.prototype.mafiaGreetingEnd = function(callback) {
+Sound.prototype.mafiaGreetingEnd = function(callback) {
     this.mafia_greeting_end.addEventListener('ended', callback);
     this.mafia_greeting_end.play();
 };
 
-Audio.prototype.mafiaStart = function(callback) {
+Sound.prototype.mafiaStart = function(callback) {
     this.mafia_start.addEventListener('ended', callback);
     this.mafia_start.play();
 };
 
-Audio.prototype.mafiaEnd = function(callback) {
+Sound.prototype.mafiaEnd = function(callback) {
     this.mafia_end.addEventListener('ended', callback);
     this.mafia_end.play();
 };
 
-Audio.prototype.courtStart = function(callback) {
+Sound.prototype.courtStart = function(callback) {
     this.court_start.addEventListener('ended', callback);
     this.court_start.play();
 };
 
-Audio.prototype.courtEnd = function(callback) {
+Sound.prototype.courtEnd = function(callback) {
     this.court_end.addEventListener('ended', callback);
     this.court_end.play();
 };
 
-Audio.prototype.courtOutOne = function(callback) {
+Sound.prototype.courtOutOne = function(callback) {
     this.court_out_one.addEventListener('ended', callback);
     this.court_out_one.play();
 };
 
-Audio.prototype.courtOutNobody = function(callback) {
+Sound.prototype.courtOutNobody = function(callback) {
     this.court_out_nobody.addEventListener('ended', callback);
     this.court_out_nobody.play();
 };
 
-Audio.prototype.doctorStart = function(callback) {
+Sound.prototype.doctorStart = function(callback) {
     this.doctor_start.addEventListener('ended', callback);
     this.doctor_start.play();
 };
 
-Audio.prototype.doctorEnd = function(callback) {
+Sound.prototype.doctorEnd = function(callback) {
     this.doctor_end.addEventListener('ended', callback);
     this.doctor_end.play();
 };
 
-Audio.prototype.girlStart = function(callback) {
+Sound.prototype.girlStart = function(callback) {
     this.girl_start.addEventListener('ended', callback);
     this.girl_start.play();
 };
 
-Audio.prototype.girlEnd = function(callback) {
+Sound.prototype.girlEnd = function(callback) {
     this.girl_end.addEventListener('ended', callback);
     this.girl_end.play();
 };
 
-Audio.prototype.sheriffStart = function(callback) {
+Sound.prototype.sheriffStart = function(callback) {
     this.sheriff_start.addEventListener('ended', callback);
     this.sheriff_start.play();
 };
 
-Audio.prototype.sheriffEnd = function(callback) {
+Sound.prototype.sheriffEnd = function(callback) {
     this.sheriff_end.addEventListener('ended', callback);
     this.sheriff_end.play();
 };

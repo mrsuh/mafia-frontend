@@ -5,7 +5,7 @@ var bus = new EventEmitter();
 var gameObj = new Game();
 
 var view = new View('app');
-var audio = new Audio();
+var audio = new Sound();
 
 new GameEvent(gameObj, bus, view);
 new CitizensGreetingEvent(gameObj, bus, view);
