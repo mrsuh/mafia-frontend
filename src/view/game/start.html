@@ -1,0 +1,61 @@
+<div class="js-view game-start active">
+    <h1 class="text-center">МАФИЯ</h1>
+
+    <div class="form-group">
+        <label class="control-label" for="game-start-id-input">ID игры</label>
+        <input id="game-start-id-input" class="form-control is-valid" placeholder="444" type="text" value="767">
+        <label class="control-label" for="game-start-username-input">Имя игрока</label>
+        <input id="game-start-username-input" class="form-control is-valid" placeholder="Сухачёв Антон" type="text" value="Anton">
+        <br>
+        <button type="button" class="btn btn-success form-control" id="game-start-join-btn">Присоединиться к игре
+        </button>
+        <br>
+        <br>
+        <button type="button" class="btn btn-secondary disabled form-control" id="game-start-create-btn">Создать игру
+        </button>
+    </div>
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var createBtn = document.getElementById('game-start-create-btn');
+        var joinBtn = document.getElementById('game-start-join-btn');
+
+        var gameIdInput = document.getElementById('game-start-id-input');
+        var usernameInput = document.getElementById('game-start-username-input');
+
+        createBtn.addEventListener('click', function () {
+
+            var username = usernameInput.value;
+
+            if (!username) {
+                console.error('empty username');
+
+                return false;
+            }
+
+            bus.emit('view.game-start.create', {username: username})
+        });
+
+        joinBtn.addEventListener('click', function () {
+            var gameId = gameIdInput.value;
+            var username = usernameInput.value;
+
+            if (!gameId) {
+                console.error('empty game id');
+
+                return false;
+            }
+
+            if (!username) {
+                console.error('empty username');
+
+                return false;
+            }
+
+            bus.emit('view.game-start.join', {game_id: gameId, username: username})
+        });
+    });
+
+</script>
