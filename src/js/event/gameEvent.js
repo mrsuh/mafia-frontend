@@ -5,8 +5,6 @@ var GameEvent = function (game, bus, view) {
     this.view = view;
     this.players = [];
 
-    this.view.active('game-start');
-
     this.bus.addListener('game.create', function (msg) {
         this.createAction(msg)
     }.bind(this));
