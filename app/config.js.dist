@@ -1,0 +1,3 @@
+var config = {
+    wsserver: 'ws://server.com:9090'
+};

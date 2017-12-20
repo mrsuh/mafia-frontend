@@ -5,7 +5,7 @@ var bus = new EventEmitter();
 var gameObj = new Game();
 
 var ws = function () {
-    var conn = new WebSocket('ws://127.0.0.1:8080');
+    var conn = new WebSocket(config.wsserver);
     conn.onopen = function (e) {
         console.log("Connection established!");
     };

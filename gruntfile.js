@@ -44,6 +44,7 @@ module.exports = function (grunt) {
                 files: {
                     'web/js/main.min.js': [
                         'node_modules/wolfy87-eventemitter/EventEmitter.js',
+                        'app/config.js',
                         'web/js/audio.js',
                         'web/js/game.js',
                         'web/js/view.js',
@@ -71,6 +72,11 @@ module.exports = function (grunt) {
                     compress: true
                 }
             }
+        },
+        clean: {
+            js: ['web/js/*', '!web/js/main.min.js'],
+            style: ['web/style/*', '!web/style/main.css'],
+            view: ['web/view']
         }
     });
 
@@ -78,6 +84,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('build', ['copy', 'string-replace', 'uglify', 'less']);
+    grunt.registerTask('build', ['copy', 'string-replace', 'uglify', 'less', 'clean']);
 };

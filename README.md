@@ -7,6 +7,14 @@ Party game modelling a conflict between an informed minority, the mafia, and an 
 sh bin/deploy.sh
 ```
 
+## Config
+app/config.js
+````js
+var config = {
+    wsserver: 'ws://server.com:9090'
+};
+````
+
 ## Messages
 ````text
 1< game.create > game.create

@@ -4,61 +4,61 @@ var Audio = function() {
     this.seed = '?v=' + Math.random();
 
     this.game_start = document.createElement('AUDIO');
-    this.game_start.src = 'dist/audio/game_start.mp3' + this.seed;
+    this.game_start.src = 'audio/game_start.mp3' + this.seed;
 
     this.citizens_greeting_start = document.createElement('AUDIO');
-    this.citizens_greeting_start.src = 'dist/audio/citizens_greeting_start.mp3' + this.seed;
+    this.citizens_greeting_start.src = 'audio/citizens_greeting_start.mp3' + this.seed;
 
     this.citizens_greeting_end = document.createElement('AUDIO');
-    this.citizens_greeting_end.src = 'dist/audio/citizens_greeting_end.mp3' + this.seed;
+    this.citizens_greeting_end.src = 'audio/citizens_greeting_end.mp3' + this.seed;
 
     this.day_start = document.createElement('AUDIO');
-    this.day_start.src = 'dist/audio/day_start.mp3' + this.seed;
+    this.day_start.src = 'audio/day_start.mp3' + this.seed;
 
     this.night_start = document.createElement('AUDIO');
-    this.night_start.src = 'dist/audio/night_start.mp3' + this.seed;
+    this.night_start.src = 'audio/night_start.mp3' + this.seed;
 
     this.mafia_greeting_start = document.createElement('AUDIO');
-    this.mafia_greeting_start.src = 'dist/audio/mafia_greeting_start.mp3' + this.seed;
+    this.mafia_greeting_start.src = 'audio/mafia_greeting_start.mp3' + this.seed;
 
     this.mafia_greeting_end = document.createElement('AUDIO');
-    this.mafia_greeting_end.src = 'dist/audio/mafia_greeting_start.mp3' + this.seed; //todo
+    this.mafia_greeting_end.src = 'audio/mafia_greeting_start.mp3' + this.seed; //todo
 
     this.mafia_start = document.createElement('AUDIO');
-    this.mafia_start.src = 'dist/audio/mafia_start.mp3' + this.seed;
+    this.mafia_start.src = 'audio/mafia_start.mp3' + this.seed;
 
     this.mafia_end = document.createElement('AUDIO');
-    this.mafia_end.src = 'dist/audio/mafia_end.mp3' + this.seed;
+    this.mafia_end.src = 'audio/mafia_end.mp3' + this.seed;
 
     this.court_start = document.createElement('AUDIO');
-    this.court_start.src = 'dist/audio/court_start.mp3' + this.seed;
+    this.court_start.src = 'audio/court_start.mp3' + this.seed;
 
     this.court_end = document.createElement('AUDIO');
-    this.court_end.src = 'dist/audio/court_end.mp3' + this.seed;
+    this.court_end.src = 'audio/court_end.mp3' + this.seed;
 
     this.court_out_one = document.createElement('AUDIO');
-    this.court_out_one.src = 'dist/audio/court_out_one.mp3' + this.seed;
+    this.court_out_one.src = 'audio/court_out_one.mp3' + this.seed;
 
     this.court_out_nobody = document.createElement('AUDIO');
-    this.court_out_nobody.src = 'dist/audio/court_out_nobody.mp3' + this.seed;
+    this.court_out_nobody.src = 'audio/court_out_nobody.mp3' + this.seed;
 
     this.doctor_start = document.createElement('AUDIO');
-    this.doctor_start.src = 'dist/audio/doctor_start.mp3' + this.seed;
+    this.doctor_start.src = 'audio/doctor_start.mp3' + this.seed;
 
     this.doctor_end = document.createElement('AUDIO');
-    this.doctor_end.src = 'dist/audio/doctor_end.mp3' + this.seed;//todo
+    this.doctor_end.src = 'audio/doctor_end.mp3' + this.seed;//todo
 
     this.girl_start = document.createElement('AUDIO');
-    this.girl_start.src = 'dist/audio/girl_start.mp3' + this.seed;
+    this.girl_start.src = 'audio/girl_start.mp3' + this.seed;
 
     this.girl_end = document.createElement('AUDIO');
-    this.girl_end.src = 'dist/audio/girl_end.mp3' + this.seed;//todo
+    this.girl_end.src = 'audio/girl_end.mp3' + this.seed;//todo
 
     this.sheriff_start = document.createElement('AUDIO');
-    this.sheriff_start.src = 'dist/audio/sheriff_start.mp3' + this.seed;
+    this.sheriff_start.src = 'audio/sheriff_start.mp3' + this.seed;
 
     this.sheriff_end = document.createElement('AUDIO');
-    this.sheriff_end.src = 'dist/audio/sheriff_end.mp3' + this.seed;
+    this.sheriff_end.src = 'audio/sheriff_end.mp3' + this.seed;
 };
 
 Audio.prototype.gameStart = function(callback) {
