@@ -1,4 +1,4 @@
-var GirlEvent = function(game, bus) {
+var GirlEvent = function(game, bus, view) {
     this.game = game;
     this.bus = bus;
     this.view = view;

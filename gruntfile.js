@@ -55,27 +55,37 @@ module.exports = function (grunt) {
                         'web/js/event/gameEvent.js',
                         'web/js/event/girlEvent.js',
                         'web/js/event/mafiaEvent.js',
-                        'web/js/event/mafiaGreetingEEvent.js',
+                        'web/js/event/mafiaGreetingEvent.js',
                         'web/js/event/nightEvent.js',
                         'web/js/event/sheriffEvent.js',
                         'web/js/util/class.js',
                         'web/js/main.js'
-
                     ]
                 }
             }
         },
         less: {
             main: {
-                files: {'web/style/style.css': 'web/style/style.less'},
+                files: {'web/style/main.css': 'web/style/main.less'},
                 options: {
                     compress: true
                 }
             }
         },
+        cssmin: {
+            options: {
+                mergeIntoShorthands: false,
+                roundingPrecision: -1
+            },
+            target: {
+                files: {
+                    'web/style/style.css': ['web/style/normalize.css', 'web/style/bootstrap.css', 'web/style/main.css']
+                }
+            }
+        },
         clean: {
             js: ['web/js/*', '!web/js/main.min.js'],
-            style: ['web/style/*', '!web/style/main.css'],
+            style: ['web/style/*', '!web/style/style.css'],
             view: ['web/view']
         }
     });
@@ -85,6 +95,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    grunt.registerTask('build', ['copy', 'string-replace', 'uglify', 'less', 'clean']);
+    grunt.registerTask('build', ['copy', 'string-replace', 'uglify', 'less', 'cssmin', 'clean']);
 };

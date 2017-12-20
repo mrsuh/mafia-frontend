@@ -60,19 +60,18 @@ bus.addListener('onmessage', function (e) {
     bus.emit(event + '.' + action, msg);
 });
 
-var view = new View('app');
+document.addEventListener('DOMContentLoaded', function() {
+    var view = new View('app');
+    var audio = new Audio();
 
-var audio = new Audio();
-
-new GameEvent(gameObj, bus, view);
-new CitizensGreetingEvent(gameObj, bus, view);
-new DayEvent(gameObj, bus, view);
-new NightEvent(gameObj, bus, view);
-new MafiaGreetingEvent(gameObj, bus, view);
-new CourtEvent(gameObj, bus, view);
-new MafiaEvent(gameObj, bus, view);
-new DoctorEvent(gameObj, bus, view);
-new SheriffEvent(gameObj, bus, view);
-new GirlEvent(gameObj, bus, view);
-
-ws();
+    new GameEvent(gameObj, bus, view);
+    new CitizensGreetingEvent(gameObj, bus, view);
+    new DayEvent(gameObj, bus, view);
+    new NightEvent(gameObj, bus, view);
+    new MafiaGreetingEvent(gameObj, bus, view);
+    new CourtEvent(gameObj, bus, view);
+    new MafiaEvent(gameObj, bus, view);
+    new DoctorEvent(gameObj, bus, view);
+    new SheriffEvent(gameObj, bus, view);
+    new GirlEvent(gameObj, bus, view);
+});
