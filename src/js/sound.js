@@ -62,6 +62,20 @@ var Sound = function() {
 
     this.sheriff_end = document.createElement('AUDIO');
     this.sheriff_end.src = 'audio/sheriff_end.mp3' + this.seed;
+
+    this.mobileTest();
+};
+
+Sound.prototype.mobileTest = function() {
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", this.game_start_file, true);
+    oReq.responseType = "arraybuffer";
+
+    oReq.onload = function(oEvent) {
+        console.info('File loaded', this.game_start_file);
+    };
+
+    oReq.send();
 };
 
 Sound.prototype.gameStart = function(callback) {
