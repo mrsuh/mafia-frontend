@@ -73,7 +73,7 @@ Sound.prototype.mobileTest = function() {
 
     oReq.onload = function(oEvent) {
         console.info('File loaded', this.game_start_file);
-    };
+    }.bind(this);
 
     oReq.send();
 };
