@@ -24,11 +24,7 @@ DayEvent.prototype.startAction = function(msg) {
     }
 };
 
-DayEvent.prototype.acceptAction = function(msg) {
-
-};
-
 DayEvent.prototype.outAction = function(msg) {
     console.info('DAY.OUT', msg);
-    this.view.history('Из игры выбывает ' + msg.player.username);
+    this.view.history('Из игры выбывает <b>' + msg.player.username + '</b>');
 };

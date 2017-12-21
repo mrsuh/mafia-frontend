@@ -32,7 +32,7 @@ CourtEvent.prototype.playersAction = function(msg) {
 
 CourtEvent.prototype.outAction = function(msg) {
     console.info('COURT.OUT', msg);
-    this.view.history('Из игры выбывает игрок ' + msg.player.username);
+    this.view.history('Из игры выбывает игрок <b>' + msg.player.username + '</b>');
 };
 
 CourtEvent.prototype.voteAction = function(msg) {

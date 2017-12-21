@@ -64,7 +64,7 @@ bus.addListener('onmessage', function (e) {
 
     if (msg['status'] === 'error') {
         console.error(msg);
-
+        showAlert(msg['message']);
         return false;
     }
 

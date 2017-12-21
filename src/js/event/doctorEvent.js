@@ -23,7 +23,7 @@ DoctorEvent.prototype.startAction = function(msg) {
 
 DoctorEvent.prototype.playersAction = function(msg) {
     console.info('DOCTOR.PLAYERS', msg);
-    this.view.history('Доктор делает свой выбор');
+    this.view.history('Доктор делает свой выбор...');
 
     if(this.game.role === 'ROLE_DOCTOR') {
         this.view.doctorPlayers(msg.players);

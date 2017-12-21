@@ -15,11 +15,3 @@ NightEvent.prototype.startAction = function(msg) {
         this.bus.emit('sendmessage', {event: this.event, action: 'started'});
     }.bind(this));
 };
-
-NightEvent.prototype.acceptAction = function(msg) {
-
-};
-
-NightEvent.prototype.outAction = function() {
-
-};

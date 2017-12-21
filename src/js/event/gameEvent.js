@@ -79,9 +79,9 @@ GameEvent.prototype.playersAction = function (msg) {
             continue;
         }
         this.players[player_id] = players[i];
-        var msg = 'К игре присоединился игрок ' + players[i].username;
-        this.view.gamePlayers(msg);
-        this.view.history(msg);
+        var message = 'К игре присоединился игрок <b>' + players[i].username + '</b>';
+        this.view.gamePlayers(message);
+        this.view.history(message);
     }
 };
 
@@ -99,5 +99,5 @@ GameEvent.prototype.overAction = function (msg) {
             break;
     }
 
-    this.view.history('Игра окончена. ' + winner);
+    this.view.history('Игра окончена. <b>' + winner + '</b>');
 };

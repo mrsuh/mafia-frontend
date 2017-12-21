@@ -25,7 +25,6 @@ MafiaGreetingEvent.prototype.startAction = function(msg) {
 MafiaGreetingEvent.prototype.playersAction = function(msg) {
     console.info('MAFIA-GREETING.PLAYERS', msg);
     this.view.history('Мафия знакомится...');
-    audio.mafiaGreetingStart();
 
     if(this.game.role === 'ROLE_MAFIA') {
         this.view.mafiaGreetingPlayers(msg.players);

@@ -56,5 +56,4 @@ CitizensGreetingEvent.prototype.endAction = function(msg) {
     audio.citizensGreetingEnd(function() {
         this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
     }.bind(this));
-
 };

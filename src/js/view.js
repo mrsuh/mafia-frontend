@@ -25,7 +25,7 @@ View.prototype.gamePlayers = function(message) {
     th.setAttribute('scope', 'row');
 
     var now = new Date();
-    th.innerText = '[' + now.getHours() + ':' + now.getMinutes() + '] ' + message;
+    th.innerHTML = '[' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '] ' + message;
 
     tr.appendChild(th);
     players.appendChild(tr);
@@ -204,7 +204,7 @@ View.prototype.history = function(message) {
     th.setAttribute('scope', 'row');
 
     var now = new Date();
-    th.innerText = '[' + now.getHours() + ':' + now.getMinutes() + '] ' + message;
+    th.innerHTML = '[' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '] ' + message;
     tr.appendChild(th);
     players.appendChild(tr);
 };

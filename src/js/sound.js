@@ -11,8 +11,6 @@ var Sound = function() {
     this.citizens_greeting_end = 'audio/citizens_greeting_end.mp3' + this.seed;
     this.day_start = 'audio/day_start.mp3' + this.seed;
     this.night_start = 'audio/night_start.mp3' + this.seed;
-    this.mafia_greeting_start = 'audio/mafia_greeting_start.mp3' + this.seed;
-    this.mafia_greeting_end = 'audio/mafia_greeting_start.mp3' + this.seed; //todo
     this.mafia_start = 'audio/mafia_start.mp3' + this.seed;
     this.mafia_end = 'audio/mafia_end.mp3' + this.seed;
     this.court_start = 'audio/court_start.mp3' + this.seed;
@@ -41,8 +39,6 @@ Sound.prototype.Buffer = function() {
         this.citizens_greeting_end,
         this.day_start,
         this.night_start,
-        this.mafia_greeting_start,
-        this.mafia_greeting_end,
         this.mafia_start,
         this.mafia_end,
         this.court_start,
@@ -105,14 +101,6 @@ Sound.prototype.dayStart = function(callback) {
 
 Sound.prototype.nightStart = function(callback) {
     this.Play(this.night_start, callback);
-};
-
-Sound.prototype.mafiaGreetingStart = function(callback) {
-    this.Play(this.mafia_greeting_start, callback);
-};
-
-Sound.prototype.mafiaGreetingEnd = function(callback) {
-    this.Play(this.mafia_greeting_end, callback);
 };
 
 Sound.prototype.mafiaStart = function(callback) {

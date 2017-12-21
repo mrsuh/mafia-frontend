@@ -1,0 +1,13 @@
+<div class="js-view alert alert-dismissible alert-danger" id="js-alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong id="js-alert-text"></strong>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var closeBtn = document.querySelector('#js-alert .close');
+
+        closeBtn.addEventListener('click', function() {
+            document.getElementById('js-alert').removeClass('active');
+        })
+    })
+</script>

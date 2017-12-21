@@ -23,7 +23,7 @@ SheriffEvent.prototype.startAction = function(msg) {
 
 SheriffEvent.prototype.playersAction = function(msg) {
     console.info('SHERIFF.PLAYERS', msg);
-    this.view.history('Шериф делает свой выбор');
+    this.view.history('Шериф делает свой выбор...');
 
     if(this.game.role === 'ROLE_SHERIFF') {
         this.view.sheriffPlayers(msg.players);

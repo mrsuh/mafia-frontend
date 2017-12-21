@@ -23,7 +23,7 @@ GirlEvent.prototype.startAction = function(msg) {
 
 GirlEvent.prototype.playersAction = function(msg) {
     console.info('GIRL.PLAYERS', msg);
-    this.view.history('Девушка делает свой выбор');
+    this.view.history('Девушка делает свой выбор...');
 
     if(this.game.role === 'ROLE_GIRL') {
         this.view.girlPlayers(msg.players);
