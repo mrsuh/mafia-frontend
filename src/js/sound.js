@@ -5,180 +5,160 @@ var Sound = function() {
 
     this.sound = document.createElement('AUDIO');
 
-    this.game_start = document.createElement('AUDIO');
-    this.game_start_file = 'audio/game_start.mp3' + this.seed;
-    this.game_start.src = this.game_start_file;
+    this.silence = 'audio/silence.mp3' + this.seed;
+    this.game_start = 'audio/game_start.mp3' + this.seed;
+    this.citizens_greeting_start = 'audio/citizens_greeting_start.mp3' + this.seed;
+    this.citizens_greeting_end = 'audio/citizens_greeting_end.mp3' + this.seed;
+    this.day_start = 'audio/day_start.mp3' + this.seed;
+    this.night_start = 'audio/night_start.mp3' + this.seed;
+    this.mafia_greeting_start = 'audio/mafia_greeting_start.mp3' + this.seed;
+    this.mafia_greeting_end = 'audio/mafia_greeting_start.mp3' + this.seed; //todo
+    this.mafia_start = 'audio/mafia_start.mp3' + this.seed;
+    this.mafia_end = 'audio/mafia_end.mp3' + this.seed;
+    this.court_start = 'audio/court_start.mp3' + this.seed;
+    this.court_end = 'audio/court_end.mp3' + this.seed;
+    this.court_out_one = 'audio/court_out_one.mp3' + this.seed;
+    this.court_out_nobody = 'audio/court_out_nobody.mp3' + this.seed;
+    this.doctor_start = 'audio/doctor_start.mp3' + this.seed;
+    this.doctor_end = 'audio/doctor_end.mp3' + this.seed;//todo
+    this.girl_start = 'audio/girl_start.mp3' + this.seed;
+    this.girl_end = 'audio/girl_end.mp3' + this.seed;//todo
+    this.sheriff_start = 'audio/sheriff_start.mp3' + this.seed;
+    this.sheriff_end = 'audio/sheriff_end.mp3' + this.seed;
 
-    this.citizens_greeting_start = document.createElement('AUDIO');
-    this.citizens_greeting_start.src = 'audio/citizens_greeting_start.mp3' + this.seed;
-
-    this.citizens_greeting_end = document.createElement('AUDIO');
-    this.citizens_greeting_end.src = 'audio/citizens_greeting_end.mp3' + this.seed;
-
-    this.day_start = document.createElement('AUDIO');
-    this.day_start.src = 'audio/day_start.mp3' + this.seed;
-
-    this.night_start = document.createElement('AUDIO');
-    this.night_start.src = 'audio/night_start.mp3' + this.seed;
-
-    this.mafia_greeting_start = document.createElement('AUDIO');
-    this.mafia_greeting_start.src = 'audio/mafia_greeting_start.mp3' + this.seed;
-
-    this.mafia_greeting_end = document.createElement('AUDIO');
-    this.mafia_greeting_end.src = 'audio/mafia_greeting_start.mp3' + this.seed; //todo
-
-    this.mafia_start = document.createElement('AUDIO');
-    this.mafia_start.src = 'audio/mafia_start.mp3' + this.seed;
-
-    this.mafia_end = document.createElement('AUDIO');
-    this.mafia_end.src = 'audio/mafia_end.mp3' + this.seed;
-
-    this.court_start = document.createElement('AUDIO');
-    this.court_start.src = 'audio/court_start.mp3' + this.seed;
-
-    this.court_end = document.createElement('AUDIO');
-    this.court_end.src = 'audio/court_end.mp3' + this.seed;
-
-    this.court_out_one = document.createElement('AUDIO');
-    this.court_out_one.src = 'audio/court_out_one.mp3' + this.seed;
-
-    this.court_out_nobody = document.createElement('AUDIO');
-    this.court_out_nobody.src = 'audio/court_out_nobody.mp3' + this.seed;
-
-    this.doctor_start = document.createElement('AUDIO');
-    this.doctor_start.src = 'audio/doctor_start.mp3' + this.seed;
-
-    this.doctor_end = document.createElement('AUDIO');
-    this.doctor_end.src = 'audio/doctor_end.mp3' + this.seed;//todo
-
-    this.girl_start = document.createElement('AUDIO');
-    this.girl_start.src = 'audio/girl_start.mp3' + this.seed;
-
-    this.girl_end = document.createElement('AUDIO');
-    this.girl_end.src = 'audio/girl_end.mp3' + this.seed;//todo
-
-    this.sheriff_start = document.createElement('AUDIO');
-    this.sheriff_start.src = 'audio/sheriff_start.mp3' + this.seed;
-
-    this.sheriff_end = document.createElement('AUDIO');
-    this.sheriff_end.src = 'audio/sheriff_end.mp3' + this.seed;
-
-    this.mobileTest();
+    this.Buffer();
 };
 
-Sound.prototype.mobileTest = function() {
-    var oReq = new XMLHttpRequest();
-    oReq.open("GET", this.game_start_file, true);
-    oReq.responseType = "arraybuffer";
-
-    oReq.onload = function(oEvent) {
-        console.info('File loaded', this.game_start_file);
-    }.bind(this);
-
-    oReq.send();
+Sound.prototype.Init = function() {
+    this.Play(this.silence);
 };
 
-Sound.prototype.gameStart = function(callback) {
-    console.debug('audio game_start', 'start');
+Sound.prototype.Buffer = function() {
+
+    var sounds = [
+        this.game_start,
+        this.citizens_greeting_start,
+        this.citizens_greeting_end,
+        this.day_start,
+        this.night_start,
+        this.mafia_greeting_start,
+        this.mafia_greeting_end,
+        this.mafia_start,
+        this.mafia_end,
+        this.court_start,
+        this.court_end,
+        this.court_out_one,
+        this.court_out_nobody,
+        this.doctor_start,
+        this.doctor_end,
+        this.girl_start,
+        this.girl_end,
+        this.sheriff_start,
+        this.sheriff_end
+    ];
+
+    for(var i = 0, length = sounds.length; i < length; i++) {
+        var sound = sounds[i];
+        this.Download(sound);
+    }
+};
+
+Sound.prototype.Download = function(url) {
+    var req = new XMLHttpRequest();
+    req.open("GET", url, true);
+    req.responseType = "arraybuffer";
+    req.onload = function() {
+        console.info('File loaded', url);
+    };
+    req.send();
+};
+
+Sound.prototype.Play = function(sound, callback) {
+    console.debug('sound play start', sound);
+
     var end = function() {
-        console.debug('audio game_start', 'ended');
         callback && callback();
         this.sound.removeEventListener('ended', end);
+        console.debug('sound play done', sound);
     }.bind(this);
 
-    console.debug('audio game_start', 'set src');
-    this.sound.src = this.game_start_file;
+    this.sound.src = sound;
     this.sound.addEventListener('ended', end);
-    console.debug('audio game_start', 'play');
     this.sound.play();
 };
 
+Sound.prototype.gameStart = function(callback) {
+    this.Play(this.game_start, callback);
+};
+
 Sound.prototype.citizensGreetingStart = function(callback) {
-    this.citizens_greeting_start.addEventListener('ended', callback);
-    this.citizens_greeting_start.play();
+    this.Play(this.citizens_greeting_start, callback);
 };
 
 Sound.prototype.citizensGreetingEnd = function(callback) {
-    this.citizens_greeting_end.addEventListener('ended', callback);
-    this.citizens_greeting_end.play();
+    this.Play(this.citizens_greeting_end, callback);
 };
 
 Sound.prototype.dayStart = function(callback) {
-    this.day_start.addEventListener('ended', callback);
-    this.day_start.play();
+    this.Play(this.day_start, callback);
 };
 
 Sound.prototype.nightStart = function(callback) {
-    this.night_start.addEventListener('ended', callback);
-    this.night_start.play();
+    this.Play(this.night_start, callback);
 };
 
 Sound.prototype.mafiaGreetingStart = function(callback) {
-    this.mafia_greeting_start.addEventListener('ended', callback);
-    this.mafia_greeting_start.play();
+    this.Play(this.mafia_greeting_start, callback);
 };
 
 Sound.prototype.mafiaGreetingEnd = function(callback) {
-    this.mafia_greeting_end.addEventListener('ended', callback);
-    this.mafia_greeting_end.play();
+    this.Play(this.mafia_greeting_end, callback);
 };
 
 Sound.prototype.mafiaStart = function(callback) {
-    this.mafia_start.addEventListener('ended', callback);
-    this.mafia_start.play();
+    this.Play(this.mafia_start, callback);
 };
 
 Sound.prototype.mafiaEnd = function(callback) {
-    this.mafia_end.addEventListener('ended', callback);
-    this.mafia_end.play();
+    this.Play(this.mafia_end, callback);
 };
 
 Sound.prototype.courtStart = function(callback) {
-    this.court_start.addEventListener('ended', callback);
-    this.court_start.play();
+    this.Play(this.court_start, callback);
 };
 
 Sound.prototype.courtEnd = function(callback) {
-    this.court_end.addEventListener('ended', callback);
-    this.court_end.play();
+    this.Play(this.court_end, callback);
 };
 
 Sound.prototype.courtOutOne = function(callback) {
-    this.court_out_one.addEventListener('ended', callback);
-    this.court_out_one.play();
+    this.Play(this.court_out_one, callback);
 };
 
 Sound.prototype.courtOutNobody = function(callback) {
-    this.court_out_nobody.addEventListener('ended', callback);
-    this.court_out_nobody.play();
+    this.Play(this.court_out_nobody, callback);
 };
 
 Sound.prototype.doctorStart = function(callback) {
-    this.doctor_start.addEventListener('ended', callback);
-    this.doctor_start.play();
+    this.Play(this.doctor_start, callback);
 };
 
 Sound.prototype.doctorEnd = function(callback) {
-    this.doctor_end.addEventListener('ended', callback);
-    this.doctor_end.play();
+    this.Play(this.doctor_end, callback);
 };
 
 Sound.prototype.girlStart = function(callback) {
-    this.girl_start.addEventListener('ended', callback);
-    this.girl_start.play();
+    this.Play(this.girl_start, callback);
 };
 
 Sound.prototype.girlEnd = function(callback) {
-    this.girl_end.addEventListener('ended', callback);
-    this.girl_end.play();
+    this.Play(this.girl_end, callback);
 };
 
 Sound.prototype.sheriffStart = function(callback) {
-    this.sheriff_start.addEventListener('ended', callback);
-    this.sheriff_start.play();
+    this.Play(this.sheriff_start, callback);
 };
 
 Sound.prototype.sheriffEnd = function(callback) {
-    this.sheriff_end.addEventListener('ended', callback);
-    this.sheriff_end.play();
+    this.Play(this.sheriff_end, callback);
 };
