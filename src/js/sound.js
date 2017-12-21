@@ -79,14 +79,17 @@ Sound.prototype.mobileTest = function() {
 };
 
 Sound.prototype.gameStart = function(callback) {
-
+    console.debug('audio game_start', 'start');
     var end = function() {
+        console.debug('audio game_start', 'ended');
         callback && callback();
         this.sound.removeEventListener('ended', end);
     }.bind(this);
 
+    console.debug('audio game_start', 'set src');
     this.sound.src = this.game_start_file;
     this.sound.addEventListener('ended', end);
+    console.debug('audio game_start', 'play');
     this.sound.play();
 };
 
