@@ -81,7 +81,7 @@ Sound.prototype.mobileTest = function() {
 Sound.prototype.gameStart = function(callback) {
 
     var end = function() {
-        callback();
+        callback && callback();
         this.sound.removeEventListener('ended', end);
     }.bind(this);
 
