@@ -35,6 +35,7 @@
                 return false;
             }
 
+            audio.gameStart();
             bus.emit('view.game-start.create', {username: username})
         });
 
@@ -54,6 +55,7 @@
                 return false;
             }
 
+            audio.gameStart();
             bus.emit('view.game-start.join', {game_id: gameId, username: username})
         });
     });

@@ -3,8 +3,11 @@
 var Sound = function() {
     this.seed = '?v=' + Math.random();
 
+    this.sound = document.createElement('AUDIO');
+
     this.game_start = document.createElement('AUDIO');
-    this.game_start.src = 'audio/game_start.mp3' + this.seed;
+    this.game_start_file = 'audio/game_start.mp3' + this.seed;
+    this.game_start.src = this.game_start_file;
 
     this.citizens_greeting_start = document.createElement('AUDIO');
     this.citizens_greeting_start.src = 'audio/citizens_greeting_start.mp3' + this.seed;
@@ -62,8 +65,15 @@ var Sound = function() {
 };
 
 Sound.prototype.gameStart = function(callback) {
-    this.game_start.addEventListener('ended', callback);
-    this.game_start.play();
+
+    var end = function() {
+        callback();
+        this.sound.removeEventListener('ended', end);
+    }.bind(this);
+
+    this.sound.src = this.game_start_file;
+    this.sound.addEventListener('ended', end);
+    this.sound.play();
 };
 
 Sound.prototype.citizensGreetingStart = function(callback) {

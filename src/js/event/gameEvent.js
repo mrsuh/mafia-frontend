@@ -6,11 +6,11 @@ var GameEvent = function (game, bus, view) {
     this.players = [];
 
     this.bus.addListener('game.create', function (msg) {
-        this.createAction(msg)
+        this.createAction(msg);
     }.bind(this));
 
     this.bus.addListener('game.join', function (msg) {
-        this.joinAction(msg)
+        this.joinAction(msg);
     }.bind(this));
 
     this.bus.addListener('game.end', function (msg) {
