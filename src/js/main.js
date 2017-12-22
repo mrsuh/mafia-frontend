@@ -45,6 +45,8 @@ var ws = function () {
             msg['game_id'] = gameObj.id;
         }
 
+        msg['gamer_id'] = gameObj.userId || '';
+
         console.info('send msg ', msg);
         conn.send(JSON.stringify(msg));
     })
