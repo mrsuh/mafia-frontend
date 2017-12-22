@@ -19,15 +19,26 @@ new SheriffEvent(gameObj, bus, view);
 new GirlEvent(gameObj, bus, view);
 
 var ws = function () {
+    console.info('ws connecting...');
     var conn = new WebSocket(config.wsserver);
     conn.onopen = function (e) {
-        console.log("Connection established!");
+        console.log("ws connected");
     };
 
     conn.onmessage = function (e) {
         bus.emit('onmessage', e.data);
     };
 
+    conn.onclose = function(e) {
+        console.info('ws close', e);
+        setTimeout(ws, 3000);
+    };
+
+    conn.onerror = function(e) {
+        console.info('ws error', e);
+    };
+
+    bus.removeListener('sendmessage');
     bus.addListener('sendmessage', function (msg) {
 
         if(!msg['game_id'] && gameObj.id) {
@@ -73,3 +84,7 @@ bus.addListener('onmessage', function (e) {
 
     bus.emit(event + '.' + action, msg);
 });
+
+setInterval(function(){
+    bus.emit('sendmessage', {game_id: gameObj.id, event: 'pingpong', action: 'ping' })
+},30000);

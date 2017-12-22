@@ -2,6 +2,33 @@
 
 var View = function(app) {
     this.app = document.getElementById(app);
+    this.Buffer();
+};
+
+View.prototype.Buffer = function() {
+
+    var pics = [
+        '/img/grizz.png',
+        '/img/ice.png',
+        '/img/panda.png',
+        '/img/chloe.png',
+        '/img/koala.png'
+    ];
+
+    for(var i = 0, length = pics.length; i < length; i++) {
+        var pic = pics[i];
+        this.Download(pic);
+    }
+};
+
+View.prototype.Download = function(url) {
+    var req = new XMLHttpRequest();
+    req.open("GET", url, true);
+    req.responseType = "arraybuffer";
+    req.onload = function() {
+        console.info('File loaded', url);
+    };
+    req.send();
 };
 
 View.prototype.active = function(template) {
