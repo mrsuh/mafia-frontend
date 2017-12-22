@@ -50,6 +50,12 @@ bus.addListener('onmessage', function (e) {
         return false;
     }
 
+    if (msg['status'] === 'error') {
+        console.error(msg);
+        showAlert(msg['message']);
+        return false;
+    }
+
     if (typeof msg['event'] === 'undefined') {
         console.error('msg has not field "event"');
 
@@ -59,12 +65,6 @@ bus.addListener('onmessage', function (e) {
     if (typeof msg['action'] === 'undefined') {
         console.error('msg has not field "action"');
 
-        return false;
-    }
-
-    if (msg['status'] === 'error') {
-        console.error(msg);
-        showAlert(msg['message']);
         return false;
     }
 

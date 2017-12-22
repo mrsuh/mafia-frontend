@@ -37,7 +37,7 @@ CourtEvent.prototype.outAction = function(msg) {
 
 CourtEvent.prototype.voteAction = function(msg) {
     console.info('COURT.VOTE', msg);
-    this.view.history('Игрок ' + msg.player.username + ' проголосовал за ' + msg.vote.username);
+    this.view.history('Игрок <b>' + msg.player.username + '</b> проголосовал за <b>' + msg.vote.username + '</b>');
 };
 
 CourtEvent.prototype.endAction = function(msg) {

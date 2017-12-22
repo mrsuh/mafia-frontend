@@ -25,7 +25,10 @@ View.prototype.gamePlayers = function(message) {
     th.setAttribute('scope', 'row');
 
     var now = new Date();
-    th.innerHTML = '[' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '] ' + message;
+    var hours = '0' + now.getHours();
+    var minutes = '0' + now.getMinutes();
+    var seconds = '0' + now.getSeconds();
+    th.innerHTML = '[' + hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2) + '] ' + message;
 
     tr.appendChild(th);
     players.appendChild(tr);
@@ -204,11 +207,19 @@ View.prototype.history = function(message) {
     th.setAttribute('scope', 'row');
 
     var now = new Date();
-    th.innerHTML = '[' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '] ' + message;
+    var hours = '0' + now.getHours();
+    var minutes = '0' + now.getMinutes();
+    var seconds = '0' + now.getSeconds();
+    th.innerHTML = '[' + hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2) + '] ' + message;
     tr.appendChild(th);
     players.appendChild(tr);
 };
 
 View.prototype.role = function(role) {
     document.getElementById('view-citizens-greeting-role').innerText = role;
+};
+
+View.prototype.sheriffResult = function(player) {
+    var text = document.getElementById('sheriff-players-result-text');
+    text.innerHTML = 'Игрок <b>' + player.username + '</b> на самом деле<br><b>' + getRoleName(player.role) + '</b>';
 };

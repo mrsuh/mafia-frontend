@@ -45,6 +45,8 @@ module.exports = function (grunt) {
                     'web/js/main.min.js': [
                         'node_modules/wolfy87-eventemitter/EventEmitter.js',
                         'app/config.js',
+                        'web/js/util/class.js',
+                        'web/js/util/role.js',
                         'web/js/alert.js',
                         'web/js/sound.js',
                         'web/js/game.js',
@@ -59,7 +61,6 @@ module.exports = function (grunt) {
                         'web/js/event/mafiaGreetingEvent.js',
                         'web/js/event/nightEvent.js',
                         'web/js/event/sheriffEvent.js',
-                        'web/js/util/class.js',
                         'web/js/main.js'
                     ]
                 }

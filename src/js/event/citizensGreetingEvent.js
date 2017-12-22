@@ -26,27 +26,9 @@ CitizensGreetingEvent.prototype.roleAction = function(msg) {
     console.info('CITIZENS-GREETING.ROLE', msg);
     var role = 'Никто';
 
-    switch(msg.role) {
-        case 'ROLE_CITIZEN':
-            role = 'Гражданин';
-            break;
-        case 'ROLE_MAFIA':
-            role = 'Мафия';
-            break;
-        case 'ROLE_GIRL':
-            role = 'Девушка';
-            break;
-        case 'ROLE_SHERIFF':
-            role = 'Шериф';
-            break;
-        case 'ROLE_DOCTOR':
-            role = 'Доктор';
-            break;
-    }
-
     this.game.role = msg.role;
 
-    this.view.role(role);
+    this.view.role(getRoleName(msg.role));
     this.view.active('citizens-greeting-role');
 };
 
