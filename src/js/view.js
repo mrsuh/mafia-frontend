@@ -12,6 +12,11 @@ View.prototype.active = function(template) {
 
     var view = document.querySelector('.'+template);
     view.addClass('active');
+
+    if (template === 'game.history') {
+        var history = document.getElementById('game-history-list');
+        window.scrollTo(0,history.scrollHeight);
+    }
 };
 
 View.prototype.gameId = function(id) {
@@ -213,13 +218,15 @@ View.prototype.history = function(message) {
     th.innerHTML = '[' + hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2) + '] ' + message;
     tr.appendChild(th);
     players.appendChild(tr);
+    window.scrollTo(0,players.scrollHeight);
 };
 
 View.prototype.role = function(role) {
-    document.getElementById('view-citizens-greeting-role').innerText = role;
+    document.getElementById('view-citizens-greeting-role').innerText = getRoleName(role);
+    document.getElementById('view-citizens-greeting-pic').src = getRolePicturePath(role);
 };
 
 View.prototype.sheriffResult = function(player) {
     var text = document.getElementById('sheriff-players-result-text');
-    text.innerHTML = 'Игрок <b>' + player.username + '</b> на самом деле<br><b>' + getRoleName(player.role) + '</b>';
+    text.innerHTML = 'Игрок <b>' + player.username + '</b> на самом деле<br><h3>' + getRoleName(player.role) + '</h3>';
 };

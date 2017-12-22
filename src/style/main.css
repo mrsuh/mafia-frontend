@@ -26,12 +26,13 @@ body {
 .game-join {
   margin-top: 50px;
 }
-.game-role img {
-  width: auto;
-  height: 400px;
-  display: block;
+.js-view img {
+  max-width: 50%;
   margin-left: auto;
   margin-right: auto;
+  display: block;
+  margin-bottom: 50px;
+  margin-top: 50px;
 }
 .hide {
   display: none;
@@ -45,4 +46,7 @@ body {
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+}
+#sheriff-players-result-text {
+  display: block;
 }

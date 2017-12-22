@@ -4,6 +4,7 @@ var CourtEvent = function(game, bus, view) {
     this.view = view;
     this.event = 'court';
     this.players = [];
+    this.out = null;
 
     this.bus.addListener('court.start', function(msg){ this.startAction(msg)}.bind(this));
     this.bus.addListener('court.players', function(msg){ this.playersAction(msg)}.bind(this));
@@ -32,6 +33,7 @@ CourtEvent.prototype.playersAction = function(msg) {
 
 CourtEvent.prototype.outAction = function(msg) {
     console.info('COURT.OUT', msg);
+    this.out = msg.player;
     this.view.history('Из игры выбывает игрок <b>' + msg.player.username + '</b>');
 };
 
@@ -45,8 +47,16 @@ CourtEvent.prototype.endAction = function(msg) {
     this.view.history('Голосование окончено');
 
     audio.courtEnd(function() {
-        audio.courtOutOne(function() {//todo
-            this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
-        }.bind(this));
+
+        if(null !== this.out) {
+            audio.courtOutOne(function() {
+                this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
+            }.bind(this), 5000);
+        } else {
+            audio.courtOutNobody(function() {
+                this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
+            }.bind(this), 2000);
+        }
+
     }.bind(this));
 };

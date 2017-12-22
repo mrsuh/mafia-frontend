@@ -50,5 +50,5 @@ SheriffEvent.prototype.endAction = function(msg) {
     this.view.history('Шериф сделал свой выбор. Шериф засыпает');
     audio.sheriffEnd(function() {
         this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
-    }.bind(this));
+    }.bind(this), 1000);
 };

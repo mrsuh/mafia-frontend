@@ -2,6 +2,7 @@
 
 var Sound = function() {
     this.seed = '?v=' + Math.random();
+    this.enable = true;
 
     this.sound = document.createElement('AUDIO');
 
@@ -69,11 +70,25 @@ Sound.prototype.Download = function(url) {
     req.send();
 };
 
-Sound.prototype.Play = function(sound, callback) {
+Sound.prototype.Play = function(sound, callback, delay) {
     console.debug('sound play start', sound);
 
-    var end = function() {
+    if(!this.enable) {
         callback && callback();
+
+        return;
+    }
+
+    var end = function() {
+
+        if(delay){
+            setTimeout(function() {
+                callback && callback();
+            }, delay)
+        } else {
+            callback && callback();
+        }
+
         this.sound.removeEventListener('ended', end);
         console.debug('sound play done', sound);
     }.bind(this);
@@ -83,70 +98,70 @@ Sound.prototype.Play = function(sound, callback) {
     this.sound.play();
 };
 
-Sound.prototype.gameStart = function(callback) {
-    this.Play(this.game_start, callback);
+Sound.prototype.gameStart = function(callback, delay) {
+    this.Play(this.game_start, callback, delay);
 };
 
-Sound.prototype.citizensGreetingStart = function(callback) {
-    this.Play(this.citizens_greeting_start, callback);
+Sound.prototype.citizensGreetingStart = function(callback, delay) {
+    this.Play(this.citizens_greeting_start, callback, delay);
 };
 
-Sound.prototype.citizensGreetingEnd = function(callback) {
-    this.Play(this.citizens_greeting_end, callback);
+Sound.prototype.citizensGreetingEnd = function(callback, delay) {
+    this.Play(this.citizens_greeting_end, callback, delay);
 };
 
-Sound.prototype.dayStart = function(callback) {
-    this.Play(this.day_start, callback);
+Sound.prototype.dayStart = function(callback, delay) {
+    this.Play(this.day_start, callback, delay);
 };
 
-Sound.prototype.nightStart = function(callback) {
-    this.Play(this.night_start, callback);
+Sound.prototype.nightStart = function(callback, delay) {
+    this.Play(this.night_start, callback, delay);
 };
 
-Sound.prototype.mafiaStart = function(callback) {
-    this.Play(this.mafia_start, callback);
+Sound.prototype.mafiaStart = function(callback, delay) {
+    this.Play(this.mafia_start, callback, delay);
 };
 
-Sound.prototype.mafiaEnd = function(callback) {
-    this.Play(this.mafia_end, callback);
+Sound.prototype.mafiaEnd = function(callback, delay) {
+    this.Play(this.mafia_end, callback, delay);
 };
 
-Sound.prototype.courtStart = function(callback) {
-    this.Play(this.court_start, callback);
+Sound.prototype.courtStart = function(callback, delay) {
+    this.Play(this.court_start, callback, delay);
 };
 
-Sound.prototype.courtEnd = function(callback) {
-    this.Play(this.court_end, callback);
+Sound.prototype.courtEnd = function(callback, delay) {
+    this.Play(this.court_end, callback, delay);
 };
 
-Sound.prototype.courtOutOne = function(callback) {
-    this.Play(this.court_out_one, callback);
+Sound.prototype.courtOutOne = function(callback, delay) {
+    this.Play(this.court_out_one, callback, delay);
 };
 
-Sound.prototype.courtOutNobody = function(callback) {
-    this.Play(this.court_out_nobody, callback);
+Sound.prototype.courtOutNobody = function(callback, delay) {
+    this.Play(this.court_out_nobody, callback, delay);
 };
 
-Sound.prototype.doctorStart = function(callback) {
-    this.Play(this.doctor_start, callback);
+Sound.prototype.doctorStart = function(callback, delay) {
+    this.Play(this.doctor_start, callback, delay);
 };
 
-Sound.prototype.doctorEnd = function(callback) {
-    this.Play(this.doctor_end, callback);
+Sound.prototype.doctorEnd = function(callback, delay) {
+    this.Play(this.doctor_end, callback, delay);
 };
 
-Sound.prototype.girlStart = function(callback) {
-    this.Play(this.girl_start, callback);
+Sound.prototype.girlStart = function(callback, delay) {
+    this.Play(this.girl_start, callback, delay);
 };
 
-Sound.prototype.girlEnd = function(callback) {
-    this.Play(this.girl_end, callback);
+Sound.prototype.girlEnd = function(callback, delay) {
+    this.Play(this.girl_end, callback, delay);
 };
 
-Sound.prototype.sheriffStart = function(callback) {
-    this.Play(this.sheriff_start, callback);
+Sound.prototype.sheriffStart = function(callback, delay) {
+    this.Play(this.sheriff_start, callback, delay);
 };
 
-Sound.prototype.sheriffEnd = function(callback) {
-    this.Play(this.sheriff_end, callback);
+Sound.prototype.sheriffEnd = function(callback, delay) {
+    this.Play(this.sheriff_end, callback, delay);
 };

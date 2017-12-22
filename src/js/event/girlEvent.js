@@ -36,5 +36,5 @@ GirlEvent.prototype.endAction = function(msg) {
     this.view.history('Девушка сделала свой выбор. Девушка засыпает');
     audio.girlEnd(function() {
         this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
-    }.bind(this));
+    }.bind(this), 1000);
 };

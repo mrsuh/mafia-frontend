@@ -20,3 +20,26 @@ var getRoleName = function(role) {
 
     return name;
 };
+
+var getRolePicturePath = function(role) {
+    var pic = '/img/';
+    switch(role) {
+        case 'ROLE_CITIZEN':
+            pic += 'panda.png';
+            break;
+        case 'ROLE_MAFIA':
+            pic += 'koala.png';
+            break;
+        case 'ROLE_GIRL':
+            pic += 'chloe.png';
+            break;
+        case 'ROLE_SHERIFF':
+            pic += 'grizz.png';
+            break;
+        case 'ROLE_DOCTOR':
+            pic += 'ice.png';
+            break;
+    }
+
+    return pic;
+};

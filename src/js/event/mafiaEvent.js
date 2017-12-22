@@ -35,5 +35,5 @@ MafiaEvent.prototype.endAction = function(msg) {
     this.view.history('Мафия сделала свой выбор. Мафия засыпает');
     audio.mafiaEnd(function() {
         this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
-    }.bind(this));
+    }.bind(this), 2000);
 };

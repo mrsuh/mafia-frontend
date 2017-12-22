@@ -36,5 +36,5 @@ DoctorEvent.prototype.endAction = function(msg) {
     this.view.history('Доктор сделал свой выбор. Доктор засыпает');
     audio.doctorEnd(function() {
         this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
-    }.bind(this));
+    }.bind(this), 1000);
 };

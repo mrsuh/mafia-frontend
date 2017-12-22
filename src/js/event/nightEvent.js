@@ -13,5 +13,5 @@ NightEvent.prototype.startAction = function(msg) {
 
     audio.nightStart(function() {
         this.bus.emit('sendmessage', {event: this.event, action: 'started'});
-    }.bind(this));
+    }.bind(this), 2000);
 };

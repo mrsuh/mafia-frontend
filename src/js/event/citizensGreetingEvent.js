@@ -24,11 +24,10 @@ CitizensGreetingEvent.prototype.startAction = function(msg) {
 
 CitizensGreetingEvent.prototype.roleAction = function(msg) {
     console.info('CITIZENS-GREETING.ROLE', msg);
-    var role = 'Никто';
 
     this.game.role = msg.role;
 
-    this.view.role(getRoleName(msg.role));
+    this.view.role(msg.role);
     this.view.active('citizens-greeting-role');
 };
 
