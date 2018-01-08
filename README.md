@@ -2,6 +2,8 @@
 
 Party game modelling a conflict between an informed minority, the mafia, and an uninformed majority, the innocents
 
+![GitHub Logo](/blob/master/screen-1.png)
+
 ## Installation
 ```bash
 sh bin/deploy.sh
