@@ -257,3 +257,12 @@ View.prototype.sheriffResult = function(player) {
     var text = document.getElementById('sheriff-players-result-text');
     text.innerHTML = 'Игрок <b>' + player.username + '</b> на самом деле<br><h3>' + getRoleName(player.role) + '</h3>';
 };
+
+View.prototype.courtResult = function (out) {
+    document.getElementById('court-result-out').innerHTML = out;
+};
+
+View.prototype.showRole = function () {
+    document.querySelector('.citizens-greeting-role').removeClass('active');
+    document.querySelector('.citizens-greeting-role-post').addClass('active');
+};

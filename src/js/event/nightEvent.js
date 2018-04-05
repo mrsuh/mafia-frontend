@@ -12,6 +12,6 @@ NightEvent.prototype.startAction = function(msg) {
     this.view.history('Наступает ночь. Город засыпает');
 
     audio.nightStart(function() {
-        this.bus.emit('sendmessage', {event: this.event, action: 'started'});
+        this.bus.emit('sendmessage', {event: this.event, action: 'start'});
     }.bind(this), 2000);
 };

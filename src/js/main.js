@@ -1,18 +1,26 @@
 'use strict';
 
+var params = getJsonFromUrl();
+
 var bus = new EventEmitter();
 
 var gameObj = new Game();
 
 var view = new View('app');
 var audio = new Sound();
+audio.setEnable(params['sound'] !== 'off');
+
+var testMode = !!params['test'];
+var testTimeout = params['testTimeout'] ? params['testTimeout'] : 500;
 
 new GameEvent(gameObj, bus, view);
 new CitizensGreetingEvent(gameObj, bus, view);
 new DayEvent(gameObj, bus, view);
 new NightEvent(gameObj, bus, view);
+new NightResultEvent(gameObj, bus, view);
 new MafiaGreetingEvent(gameObj, bus, view);
 new CourtEvent(gameObj, bus, view);
+new CourtResultEvent(gameObj, bus, view);
 new MafiaEvent(gameObj, bus, view);
 new DoctorEvent(gameObj, bus, view);
 new SheriffEvent(gameObj, bus, view);
@@ -23,39 +31,63 @@ var ws = function () {
     var conn = new WebSocket(config.wsserver);
     conn.onopen = function (e) {
         console.log("ws connected");
+        reconnect();
     };
 
     conn.onmessage = function (e) {
-        bus.emit('onmessage', e.data);
+        onMessage(e.data);
     };
 
-    conn.onclose = function(e) {
+    conn.onclose = function (e) {
         console.info('ws close', e);
         setTimeout(ws, 3000);
     };
 
-    conn.onerror = function(e) {
+    conn.onerror = function (e) {
         console.info('ws error', e);
     };
 
     bus.removeListener('sendmessage');
     bus.addListener('sendmessage', function (msg) {
-
-        if(!msg['game_id'] && gameObj.id) {
-            msg['game_id'] = gameObj.id;
-        }
-
-        msg['gamer_id'] = gameObj.userId || '';
-
         console.info('send msg ', msg);
         conn.send(JSON.stringify(msg));
     })
 };
 
-bus.addListener('onmessage', function (e) {
-    var msg = JSON.parse(e);
+var reconnect = function () {
+    var gameId = gameObj.getId();
+    var playerId = gameObj.getUserId();
 
-    console.info('rcv msg ', msg);
+    console.info('HERE', gameId, playerId);
+    if (gameId && playerId) {
+        console.info('HERE');
+        bus.emit('sendmessage', {
+            event: 'game',
+            action: 'reconnect',
+            data: {game: parseInt(gameId), player: parseInt(playerId)}
+        });
+    }
+};
+
+// setInterval(function () {
+//     bus.emit('sendmessage', {game_id: gameObj.id, event: 'pingpong', action: 'ping'})
+// }, 30000);
+
+var Errors = {
+    'invalid player id': 'Неверный ID пользователя',
+    'player have wrong role for this action': 'У вас недостаточно прав для выполнения этого действия',
+    'you can not do this action with this player several times in a row': 'Вы не можете выполнять это действие несоклько раз подряд',
+    'username already exists': 'Пользователь с таким именем уже существует',
+    'you have not rights to start game': 'У вас нет прав, чтобы начать игру',
+    'too few players to start game': 'Слишком мало игрогов, чтобы начать игру. Минимальное количество игроков: 3'
+};
+
+var onMessage = function (data) {
+    console.info('rcv msg', data);
+
+    var msg = JSON.parse(data);
+
+    console.info('rcv msg parsed ', msg);
 
     if (typeof msg['status'] === 'undefined') {
         console.error('msg has not field "status"');
@@ -63,9 +95,16 @@ bus.addListener('onmessage', function (e) {
         return false;
     }
 
-    if (msg['status'] === 'error') {
+    if (msg['status'] === 'err') {
         console.error(msg);
-        showAlert(msg['message']);
+        var data = msg['data'];
+        var err = Errors[data];
+        if (err) {
+            showAlert(err);
+        } else {
+            showAlert(data);
+        }
+
         return false;
     }
 
@@ -81,12 +120,5 @@ bus.addListener('onmessage', function (e) {
         return false;
     }
 
-    var event = msg['event'];
-    var action = msg['action'];
-
-    bus.emit(event + '.' + action, msg);
-});
-
-setInterval(function(){
-    bus.emit('sendmessage', {game_id: gameObj.id, event: 'pingpong', action: 'ping' })
-},30000);
+    bus.emit(msg['event'] + '.' + msg['action'], msg);
+};

@@ -2,11 +2,18 @@ var MafiaGreetingEvent = function(game, bus, view) {
     this.game = game;
     this.bus = bus;
     this.view = view;
-    this.event = 'mafia-greeting';
+    this.event = 'greet_mafia';
 
-    this.bus.addListener('mafia-greeting.start', function(msg){ this.startAction(msg)}.bind(this));
-    this.bus.addListener('mafia-greeting.players', function(msg){ this.playersAction(msg)}.bind(this));
-    this.bus.addListener('mafia-greeting.end', function(msg){ this.endAction(msg)}.bind(this));
+    this.bus.addListener('greet_mafia.start', function (msg) {
+        this.startAction(msg)
+    }.bind(this));
+    this.bus.addListener('greet_mafia.players', function (msg) {
+        this.playersAction(msg)
+    }.bind(this));
+    this.bus.addListener('greet_mafia.end', function (msg) {
+        this.endAction(msg)
+    }.bind(this));
+
     this.bus.addListener('view.mafia-greeting-players.done', function(msg){
         this.view.active('game-history');
         this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
@@ -16,19 +23,24 @@ var MafiaGreetingEvent = function(game, bus, view) {
 MafiaGreetingEvent.prototype.startAction = function(msg) {
     console.info('MAFIA-GREETING.START', msg);
     this.view.history('Просыпается мафия.');
+    this.view.history('Мафия знакомится...');
 
     audio.mafiaStart(function() {
-        this.bus.emit('sendmessage', {event: this.event, action: 'started'});
+        this.bus.emit('sendmessage', {event: this.event, action: 'start'});
     }.bind(this));
 };
 
 MafiaGreetingEvent.prototype.playersAction = function(msg) {
     console.info('MAFIA-GREETING.PLAYERS', msg);
-    this.view.history('Мафия знакомится...');
 
-    if(this.game.role === 'ROLE_MAFIA') {
-        this.view.mafiaGreetingPlayers(msg.players);
-        this.view.active('mafia-greeting-players');
+    this.view.mafiaGreetingPlayers(msg.data);
+    this.view.active('mafia-greeting-players');
+
+    if (testMode) {
+        setTimeout(function () {
+            this.view.active('game-history');
+            this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
+        }.bind(this), testTimeout);
     }
 };
 
@@ -37,7 +49,7 @@ MafiaGreetingEvent.prototype.endAction = function(msg) {
     this.view.history('Мафия засыпает');
     audio.mafiaEnd(function() {
         setTimeout(function() {
-            this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
+            this.bus.emit('sendmessage', {event: this.event, action: 'end'});
         }.bind(this), 2000);
     }.bind(this));
 };
