@@ -48,7 +48,6 @@ GameEvent.prototype.createAction = function (msg) {
     this.game.setId(data['game']);
     this.game.setUserId(data['id']);
     this.game.setUsername(data['username']);
-    this.game.setMaster(true);
 
     this.view.gameId(data['game']);
     this.view.showStartBtn();

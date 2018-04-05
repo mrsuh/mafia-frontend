@@ -4,7 +4,6 @@ var Game = function() {
     this.id = null;
     this.userId = null;
     this.username = null;
-    this.master = false;
 };
 
 Game.prototype.setId = function (gameId) {
@@ -29,12 +28,4 @@ Game.prototype.setUsername = function (username) {
 
 Game.prototype.getUsername = function () {
     return localStorage.getItem('username')
-};
-
-Game.prototype.setMaster = function (master) {
-    localStorage.setItem('master', master)
-};
-
-Game.prototype.getMaster = function () {
-    return !!localStorage.getItem('master')
 };

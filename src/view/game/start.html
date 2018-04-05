@@ -25,6 +25,8 @@
         var params = getJsonFromUrl();
 
         if (params['master']) {
+            document.querySelector('[for=game-start-id-input]').addClass('hide');
+            document.getElementById('game-start-id-input').addClass('hide');
             document.getElementById('game-start.join-btn').addClass('hide');
             document.getElementById('game-start.create-btn').removeClass('hide');
         }
@@ -40,6 +42,7 @@
         var gameIdInput = document.getElementById('game-start-id-input');
         var usernameInput = document.getElementById('game-start-username-input');
 
+        usernameInput.value = gameObj.getUsername();
         createBtn.addEventListener('click', function () {
 
             var username = usernameInput.value;
