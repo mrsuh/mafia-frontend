@@ -9,31 +9,30 @@ var MafiaEvent = function(game, bus, view) {
     this.bus.addListener('mafia.end', function(msg){ this.endAction(msg)}.bind(this));
     this.bus.addListener('view.mafia-players.vote', function(msg){
         this.view.active('game-history');
-        this.bus.emit('sendmessage', {event: this.event, action: 'vote', player_id: msg.player_id});
+        this.bus.emit('sendmessage', {event: this.event, action: 'vote', data: parseInt(msg.player_id)});
     }.bind(this));
 };
 
 MafiaEvent.prototype.startAction = function(msg) {
     console.info('MAFIA.START', msg);
     this.view.history('Просыпается мафия');
+    this.view.history('Мафия делает свой выбор...');
     audio.mafiaStart(function() {
-        this.bus.emit('sendmessage', {event: this.event, action: 'started'});
+        this.bus.emit('sendmessage', {event: this.event, action: 'start'});
     }.bind(this));
 };
 
 MafiaEvent.prototype.playersAction = function(msg) {
     console.info('MAFIA.PLAYERS', msg);
-    this.view.history('Мафия делает свой выбор...');
-    if(this.game.role === 'ROLE_MAFIA') {
-        this.view.mafiaPlayers(msg.players);
-        this.view.active('mafia-players');
-    }
+
+    this.view.mafiaPlayers(msg.data);
+    this.view.active('mafia-players');
 };
 
 MafiaEvent.prototype.endAction = function(msg) {
     console.info('MAFIA.END', msg);
     this.view.history('Мафия сделала свой выбор. Мафия засыпает');
     audio.mafiaEnd(function() {
-        this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
+        this.bus.emit('sendmessage', {event: this.event, action: 'end'});
     }.bind(this), 2000);
 };

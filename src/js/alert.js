@@ -9,5 +9,5 @@ var showAlert = function(message) {
 
     setTimeout(function() {
         alert.removeClass('active');
-    }, 3000);
+    }, 6000);
 };

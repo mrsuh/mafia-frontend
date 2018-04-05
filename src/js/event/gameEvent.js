@@ -6,33 +6,34 @@ var GameEvent = function (game, bus, view) {
     this.players = [];
 
     this.bus.addListener('game.create', function (msg) {
-        this.createAction(msg);
+        this.createAction(msg)
     }.bind(this));
-
     this.bus.addListener('game.join', function (msg) {
-        this.joinAction(msg);
+        this.joinAction(msg)
     }.bind(this));
-
     this.bus.addListener('game.end', function (msg) {
         this.endAction(msg)
     }.bind(this));
-
     this.bus.addListener('game.players', function (msg) {
         this.playersAction(msg)
     }.bind(this));
-
-    this.bus.addListener('game.over', function (msg) {
+    this.bus.addListener('game_over.over', function (msg) {
         this.overAction(msg)
     }.bind(this));
 
     this.bus.addListener('view.game-start.create', function(msg) {
-        this.bus.emit('sendmessage', {event: this.event, action: 'create', username: msg.username, game_id: ''});
+        this.game.setUsername(msg.username);
+        this.bus.emit('sendmessage', {event: this.event, action: 'create', data: {username: msg.username}});
     }.bind(this));
 
     this.bus.addListener('view.game-start.join', function(msg) {
-        this.game.id = msg.game_id;
+        this.game.setId(msg.game_id);
         this.view.gameId(this.game.id);
-        this.bus.emit('sendmessage', {event: this.event, action: 'join', username: msg.username, game_id: msg.game_id});
+        this.bus.emit('sendmessage', {
+            event: this.event,
+            action: 'join',
+            data: {username: msg.username, game: parseInt(msg.game_id)}
+        });
     }.bind(this));
 
     this.bus.addListener('view.game-players.start', function(msg) {
@@ -42,33 +43,34 @@ var GameEvent = function (game, bus, view) {
 
 GameEvent.prototype.createAction = function (msg) {
     console.info('GAME.CREATE', msg);
-    this.game.id = msg.game_id;
-    this.game.userId = msg.player.id;
-    this.game.username = msg.player.username;
-    this.game.master = true;
+    var data = msg.data;
 
-    this.view.gameId(this.game.id);
+    this.game.setId(data['game']);
+    this.game.setUserId(data['id']);
+    this.game.setUsername(data['username']);
+    this.game.setMaster(true);
+
+    this.view.gameId(data['game']);
     this.view.showStartBtn();
 };
 
 GameEvent.prototype.joinAction = function (msg) {
     console.info('GAME.JOIN', msg);
+    var data = msg.data;
 
-    this.game.userId = msg.player.id;
-    this.game.username = msg.player.username;
-
-    console.info(this.game);
+    this.game.setUserId(data['id']);
+    this.game.setUsername(data['username']);
 };
 
 GameEvent.prototype.endAction = function (msg) {
     this.view.history('Игра началась');
     audio.gameStart(function() {
-        this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
+        this.bus.emit('sendmessage', {event: this.event, action: 'end'});
     }.bind(this))
 };
 
 GameEvent.prototype.playersAction = function (msg) {
-    var players = msg.players;
+    var players = msg.data;
 
     console.info('GAME.PLAYERS', msg);
     this.view.active('game-players');
@@ -85,12 +87,11 @@ GameEvent.prototype.playersAction = function (msg) {
     }
 };
 
-
 GameEvent.prototype.overAction = function (msg) {
     console.info('GAME.OVER', msg);
 
     var winner = '';
-    switch(msg.winner) {
+    switch (msg.data) {
         case 'CITIZENS':
             winner = 'Победил город';
             break;

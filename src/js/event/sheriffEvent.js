@@ -9,7 +9,7 @@ var SheriffEvent = function(game, bus, view) {
     this.bus.addListener('sheriff.end', function(msg){ this.endAction(msg)}.bind(this));
     this.bus.addListener('sheriff.choice', function(msg){ this.choiceAction(msg)}.bind(this));
     this.bus.addListener('view.sheriff-players.choice', function(msg){
-            this.bus.emit('sendmessage', {event: this.event, action: 'choice', player_id: msg.player_id});
+        this.bus.emit('sendmessage', {event: this.event, action: 'choice', data: parseInt(msg.player_id)});
     }.bind(this));
 
     this.bus.addListener('view.sheriff-players-result.done', function(msg){
@@ -21,26 +21,24 @@ var SheriffEvent = function(game, bus, view) {
 SheriffEvent.prototype.startAction = function(msg) {
     console.info('SHERIFF.START', msg);
     this.view.history('Просыпается шериф');
+    this.view.history('Шериф делает свой выбор...');
     audio.sheriffStart(function() {
-        this.bus.emit('sendmessage', {event: this.event, action: 'started'});
+        this.bus.emit('sendmessage', {event: this.event, action: 'start'});
     }.bind(this));
 };
 
 SheriffEvent.prototype.playersAction = function(msg) {
     console.info('SHERIFF.PLAYERS', msg);
-    this.view.history('Шериф делает свой выбор...');
 
-    if(this.game.role === 'ROLE_SHERIFF') {
-        this.view.sheriffPlayers(msg.players);
-        this.view.active('sheriff-players');
-    }
+    this.view.sheriffPlayers(msg.data);
+    this.view.active('sheriff-players');
 };
 
 SheriffEvent.prototype.choiceAction = function(msg) {
     console.info('SHERIFF.CHOICE', msg);
 
-    if(this.game.role === 'ROLE_SHERIFF') {
-        this.view.sheriffResult(msg.player);
+    if (this.game.role === ROLE_SHERIFF) {
+        this.view.sheriffResult(msg.data);
         this.view.active('sheriff-players-result');
     }
 };
@@ -49,6 +47,6 @@ SheriffEvent.prototype.endAction = function(msg) {
     console.info('SHERIFF.END', msg);
     this.view.history('Шериф сделал свой выбор. Шериф засыпает');
     audio.sheriffEnd(function() {
-        this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
+        this.bus.emit('sendmessage', {event: this.event, action: 'end'});
     }.bind(this), 1000);
 };

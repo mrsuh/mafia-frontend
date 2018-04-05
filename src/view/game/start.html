@@ -7,11 +7,11 @@
         <label class="control-label" for="game-start-username-input">Имя игрока</label>
         <input id="game-start-username-input" class="form-control is-valid" placeholder="Сухачёв Антон" type="text">
         <br>
-        <button type="button" class="btn btn-success form-control" id="game-start-join-btn">Присоединиться к игре
+        <button type="button" class="btn btn-success form-control" id="game-start.join-btn">Присоединиться к игре
         </button>
-        <br>
-        <br>
-        <button type="button" class="btn btn-secondary disabled form-control" id="game-start-create-btn">Создать игру
+        <button type="button" class="btn btn-success form-control hide" id="game-start.create-btn">Создать игру
+        </button>
+        <button type="button" class="btn btn-success form-control hide" id="game-start.test-btn">Протестировать игру
         </button>
     </div>
 </div>
@@ -19,8 +19,23 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {
-        var createBtn = document.getElementById('game-start-create-btn');
-        var joinBtn = document.getElementById('game-start-join-btn');
+        var createBtn = document.getElementById('game-start.create-btn');
+        var joinBtn = document.getElementById('game-start.join-btn');
+
+        var params = getJsonFromUrl();
+
+        if (params['master']) {
+            document.getElementById('game-start.join-btn').addClass('hide');
+            document.getElementById('game-start.create-btn').removeClass('hide');
+        }
+
+        if (params['game']) {
+            document.getElementById('game-start-id-input').value = params['game'];
+        }
+
+        if (params['player']) {
+            document.getElementById('game-start-username-input').value = params['player'];
+        }
 
         var gameIdInput = document.getElementById('game-start-id-input');
         var usernameInput = document.getElementById('game-start-username-input');

@@ -9,32 +9,30 @@ var DoctorEvent = function(game, bus, view) {
     this.bus.addListener('doctor.end', function(msg){ this.endAction(msg)}.bind(this));
     this.bus.addListener('view.doctor-players.choice', function(msg) {
         this.view.active('game-history');
-        this.bus.emit('sendmessage', {event: this.event, action: 'choice', player_id: msg.player_id});
+        this.bus.emit('sendmessage', {event: this.event, action: 'choice', data: parseInt(msg.player_id)});
     }.bind(this));
 };
 
 DoctorEvent.prototype.startAction = function(msg) {
     console.info('DOCTOR.START', msg);
     this.view.history('Просыпается доктор');
+    this.view.history('Доктор делает свой выбор...');
     audio.doctorStart(function() {
-        this.bus.emit('sendmessage', {event: this.event, action: 'started'});
+        this.bus.emit('sendmessage', {event: this.event, action: 'start'});
     }.bind(this));
 };
 
 DoctorEvent.prototype.playersAction = function(msg) {
     console.info('DOCTOR.PLAYERS', msg);
-    this.view.history('Доктор делает свой выбор...');
 
-    if(this.game.role === 'ROLE_DOCTOR') {
-        this.view.doctorPlayers(msg.players);
-        this.view.active('doctor-players');
-    }
+    this.view.doctorPlayers(msg.data);
+    this.view.active('doctor-players');
 };
 
 DoctorEvent.prototype.endAction = function(msg) {
     console.info('DOCTOR.END', msg);
     this.view.history('Доктор сделал свой выбор. Доктор засыпает');
     audio.doctorEnd(function() {
-        this.bus.emit('sendmessage', {event: this.event, action: 'ended'});
+        this.bus.emit('sendmessage', {event: this.event, action: 'end'});
     }.bind(this), 1000);
 };
