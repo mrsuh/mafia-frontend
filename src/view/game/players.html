@@ -23,6 +23,12 @@
     document.addEventListener('DOMContentLoaded', function() {
         var startBtn = document.getElementById('game-players-start-btn');
 
+        var params = getJsonFromUrl();
+
+        if (params['master']) {
+            startBtn.removeClass('hide');
+        }
+
         startBtn.addEventListener('click', function() {
             bus.emit('view.game-players.start', {})
         })

@@ -58,9 +58,7 @@ var reconnect = function () {
     var gameId = gameObj.getId();
     var playerId = gameObj.getUserId();
 
-    console.info('HERE', gameId, playerId);
     if (gameId && playerId) {
-        console.info('HERE');
         bus.emit('sendmessage', {
             event: 'game',
             action: 'reconnect',
@@ -68,10 +66,6 @@ var reconnect = function () {
         });
     }
 };
-
-// setInterval(function () {
-//     bus.emit('sendmessage', {game_id: gameObj.id, event: 'pingpong', action: 'ping'})
-// }, 30000);
 
 var Errors = {
     'invalid player id': 'Неверный ID пользователя',
@@ -103,6 +97,11 @@ var onMessage = function (data) {
             showAlert(err);
         } else {
             showAlert(data);
+        }
+
+        if (msg['action'] === 'reconnect') {
+            gameObj.setUserId(null);
+            gameObj.setId(null);
         }
 
         return false;
