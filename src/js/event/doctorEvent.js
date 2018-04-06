@@ -25,8 +25,18 @@ DoctorEvent.prototype.startAction = function(msg) {
 DoctorEvent.prototype.playersAction = function(msg) {
     console.info('DOCTOR.PLAYERS', msg);
 
-    this.view.doctorPlayers(msg.data);
+    var players = msg.data;
+
+    this.view.doctorPlayers(players);
     this.view.active('doctor-players');
+
+    if (testMode) {
+        setTimeout(function () {
+            var vote = players[getRandomInt(0, players.length - 1)];
+            this.view.active('game-history');
+            this.bus.emit('sendmessage', {event: this.event, action: 'choice', data: parseInt(vote.id)});
+        }.bind(this), testTimeout);
+    }
 };
 
 DoctorEvent.prototype.endAction = function(msg) {

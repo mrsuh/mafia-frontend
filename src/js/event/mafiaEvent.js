@@ -24,9 +24,18 @@ MafiaEvent.prototype.startAction = function(msg) {
 
 MafiaEvent.prototype.playersAction = function(msg) {
     console.info('MAFIA.PLAYERS', msg);
+    var players = msg.data;
 
-    this.view.mafiaPlayers(msg.data);
+    this.view.mafiaPlayers(players);
     this.view.active('mafia-players');
+
+    if (testMode) {
+        setTimeout(function () {
+            var vote = players[getRandomInt(0, players.length - 1)];
+            this.view.active('game-history');
+            this.bus.emit('sendmessage', {event: this.event, action: 'vote', data: parseInt(vote.id)});
+        }.bind(this), testTimeout);
+    }
 };
 
 MafiaEvent.prototype.endAction = function(msg) {

@@ -7,19 +7,38 @@ var NightResultEvent = function (game, bus, view) {
     this.bus.addListener('night_result.out', function (msg) {
         this.outAction(msg)
     }.bind(this));
+
+    this.bus.addListener('view.night-result.accept', function (msg) {
+        this.view.active('game-history');
+        this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
+    }.bind(this));
 };
 
 NightResultEvent.prototype.outAction = function (msg) {
-    console.info('DAY.OUT', msg);
-    this.view.history('Из игры выбывает <b>' + msg.data.username + '</b>');
+    console.info('NIGHT_RESULT.OUT', msg);
+    var player = msg.data;
 
-    if (null !== this.out) {
-        audio.courtOutOne(function () {
-            this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
-        }.bind(this), 5000);
+    var out = '';
+    if (player) {
+        out = 'Из игры выбывает игрок <b>' + player.username + '</b>';
     } else {
-        audio.courtOutNobody(function () {
+        out = 'Из игры никто не выбывает';
+    }
+
+    this.view.history(out);
+    this.view.courtResult(out);
+    this.view.active('night-result');
+
+    if (testMode) {
+        setTimeout(function () {
+            this.view.active('game-history');
             this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
-        }.bind(this), 2000);
+        }.bind(this), testTimeout);
+    }
+
+    if (player) {
+        audio.courtOutOne();
+    } else {
+        audio.courtOutNobody();
     }
 };

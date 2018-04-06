@@ -4,7 +4,7 @@ var params = getJsonFromUrl();
 
 var bus = new EventEmitter();
 
-var gameObj = new Game();
+var gameObj = new Game(parseInt(params['storage']) === 0);
 
 var view = new View('app');
 var audio = new Sound();
@@ -24,6 +24,7 @@ new CourtResultEvent(gameObj, bus, view);
 new MafiaEvent(gameObj, bus, view);
 new DoctorEvent(gameObj, bus, view);
 new SheriffEvent(gameObj, bus, view);
+new SheriffResultEvent(gameObj, bus, view);
 new GirlEvent(gameObj, bus, view);
 
 var ws = function () {
@@ -64,6 +65,8 @@ var reconnect = function () {
             action: 'reconnect',
             data: {game: parseInt(gameId), player: parseInt(playerId)}
         });
+
+        view.showGameIdAndUsername()
     }
 };
 
@@ -120,4 +123,11 @@ var onMessage = function (data) {
     }
 
     bus.emit(msg['event'] + '.' + msg['action'], msg);
+};
+
+window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    var msg = '<code>' + 'Error: ' + errorMsg + '<br>Script: ' + url + '<br>Line: ' + lineNumber
+        + '<br>Column: ' + column + '<br>StackTrace: ' + errorObj + '</code>';
+
+    view.history(msg);
 };

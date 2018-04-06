@@ -50,6 +50,7 @@ GameEvent.prototype.createAction = function (msg) {
     this.game.setUsername(data['username']);
 
     this.view.gameId(data['game']);
+    this.view.showGameIdAndUsername();
     this.view.showStartBtn();
 };
 
@@ -59,6 +60,7 @@ GameEvent.prototype.joinAction = function (msg) {
 
     this.game.setUserId(data['id']);
     this.game.setUsername(data['username']);
+    this.view.showGameIdAndUsername();
 };
 
 GameEvent.prototype.endAction = function (msg) {

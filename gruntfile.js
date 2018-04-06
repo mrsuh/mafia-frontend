@@ -48,6 +48,7 @@ module.exports = function (grunt) {
                         'web/js/util/url.js',
                         'web/js/util/class.js',
                         'web/js/util/role.js',
+                        'web/js/util/math.js',
                         'web/js/alert.js',
                         'web/js/sound.js',
                         'web/js/game.js',
@@ -64,6 +65,7 @@ module.exports = function (grunt) {
                         'web/js/event/nightEvent.js',
                         'web/js/event/nightResultEvent.js',
                         'web/js/event/sheriffEvent.js',
+                        'web/js/event/sheriffResultEvent.js',
                         'web/js/main.js'
                     ]
                 }
