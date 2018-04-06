@@ -12,7 +12,7 @@ Game.prototype.setToLocalStorage = function (key, value) {
 };
 
 Game.prototype.getFromLocalStorage = function (key) {
-    localStorage.getItem(key)
+    return localStorage.getItem(key)
 };
 
 Game.prototype.setToUrl = function (key, value) {
