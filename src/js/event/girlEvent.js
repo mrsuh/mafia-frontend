@@ -24,9 +24,17 @@ GirlEvent.prototype.startAction = function(msg) {
 
 GirlEvent.prototype.playersAction = function(msg) {
     console.info('GIRL.PLAYERS', msg);
-
-    this.view.girlPlayers(msg.data);
+    var players = msg.data;
+    this.view.girlPlayers(players);
     this.view.active('girl-players');
+
+    if (testMode) {
+        setTimeout(function () {
+            var vote = players[getRandomInt(0, players.length - 1)];
+            this.view.active('game-history');
+            this.bus.emit('sendmessage', {event: this.event, action: 'choice', data: parseInt(vote.id)});
+        }.bind(this), testTimeout);
+    }
 };
 
 GirlEvent.prototype.endAction = function(msg) {

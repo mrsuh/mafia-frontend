@@ -22,7 +22,7 @@ CourtResultEvent.prototype.outAction = function (msg) {
 
     var out = '';
     if (player) {
-        out = 'Из игры выбывает игрок <b>' + msg.data.username + '</b>';
+        out = 'Из игры выбывает игрок <b>' + player.username + '</b>';
     } else {
         out = 'Из игры никто не выбывает';
     }
@@ -36,5 +36,11 @@ CourtResultEvent.prototype.outAction = function (msg) {
             this.view.active('game-history');
             this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
         }.bind(this), testTimeout);
+    }
+
+    if (player) {
+        audio.courtOutOne();
+    } else {
+        audio.courtOutNobody();
     }
 };

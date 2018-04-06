@@ -19,6 +19,7 @@ var CourtEvent = function(game, bus, view) {
 CourtEvent.prototype.startAction = function(msg) {
     console.info('COURT.START', msg);
     this.view.history('Начинается голосование');
+    this.view.courtResultClear();
     audio.courtStart(function() {
         this.bus.emit('sendmessage', {event: this.event, action: 'start'});
     }.bind(this));
@@ -32,15 +33,18 @@ CourtEvent.prototype.playersAction = function(msg) {
 
     if (testMode) {
         setTimeout(function () {
+            var vote = players[getRandomInt(0, players.length - 1)];
             this.view.active('game-history');
-            this.bus.emit('sendmessage', {event: this.event, action: 'vote', data: parseInt(players[0].id)});
+            this.bus.emit('sendmessage', {event: this.event, action: 'vote', data: parseInt(vote.id)});
         }.bind(this), testTimeout);
     }
 };
 
-CourtEvent.prototype.voteAction = function (msg) {//todo
+CourtEvent.prototype.voteAction = function (msg) {
     console.info('COURT.VOTE', msg);
-    this.view.history('Игрок <b>' + msg.data.username + '</b> проголосовал за <b>' + msg.vote.username + '</b>');
+    var message = 'Игрок <b>' + msg.data.player + '</b> проголосовал за <b>' + msg.data.vote + '</b>';
+    this.view.courtResultVote(message);
+    this.view.history(message);
 };
 
 CourtEvent.prototype.endAction = function(msg) {
@@ -48,16 +52,6 @@ CourtEvent.prototype.endAction = function(msg) {
     this.view.history('Голосование окончено');
 
     audio.courtEnd(function() {
-
-        if(null !== this.out) {
-            audio.courtOutOne(function() {
-                this.bus.emit('sendmessage', {event: this.event, action: 'end'});
-            }.bind(this), 5000);
-        } else {
-            audio.courtOutNobody(function() {
-                this.bus.emit('sendmessage', {event: this.event, action: 'end'});
-            }.bind(this), 2000);
-        }
-
+        this.bus.emit('sendmessage', {event: this.event, action: 'end'});
     }.bind(this));
 };

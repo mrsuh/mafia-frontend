@@ -31,7 +31,7 @@
             document.getElementById('game-start.create-btn').removeClass('hide');
         }
 
-        if (params['game']) {
+        if (params['game'] && 'undefined' !== typeof params['game']) {
             document.getElementById('game-start-id-input').value = params['game'];
         }
 
@@ -42,7 +42,10 @@
         var gameIdInput = document.getElementById('game-start-id-input');
         var usernameInput = document.getElementById('game-start-username-input');
 
-        usernameInput.value = gameObj.getUsername();
+        if (gameObj.getUsername()) {
+            usernameInput.value = gameObj.getUsername();
+        }
+
         createBtn.addEventListener('click', function () {
 
             var username = usernameInput.value;

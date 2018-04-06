@@ -262,7 +262,33 @@ View.prototype.courtResult = function (out) {
     document.getElementById('court-result-out').innerHTML = out;
 };
 
+View.prototype.courtResultVote = function (vote) {
+    var div = document.createElement('DIV');
+    div.innerHTML = vote;
+    document.getElementById('court-result-votes').appendChild(div);
+};
+
+View.prototype.courtResultClear = function () {
+    document.getElementById('court-result-votes').innerHTML = '';
+};
+
+View.prototype.nightResult = function (out) {
+    document.getElementById('night-result-out').innerHTML = out;
+};
+
 View.prototype.showRole = function () {
     document.querySelector('.citizens-greeting-role').removeClass('active');
     document.querySelector('.citizens-greeting-role-post').addClass('active');
+};
+
+View.prototype.showGameIdAndUsername = function () {
+    var gameId = gameObj.getId();
+    var username = gameObj.getUsername();
+
+    if (!gameId && !username) {
+        return false;
+    }
+    document.querySelector('.header').removeClass('hide');
+    document.getElementById('header-game-id').innerHTML = gameId;
+    document.getElementById('header-username').innerHTML = username;
 };

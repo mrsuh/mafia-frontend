@@ -1,0 +1,24 @@
+<div class="js-view night-result">
+    <h1 class="text-center">Утро</h1>
+
+    <div class="form-group ">
+        <br>
+        <table class="table table-hover">
+            <tbody class="table-striped" id="night-result-out">
+            </tbody>
+        </table>
+    </div>
+
+    <button type="button" class="btn btn-success form-control" id="night-result-out-btn">Понятно</button>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var startBtn = document.getElementById('night-result-out-btn');
+
+        startBtn.addEventListener('click', function () {
+            bus.emit('view.night-result.accept', {})
+        })
+    })
+</script>

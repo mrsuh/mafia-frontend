@@ -22,9 +22,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var startBtn = document.getElementById('game-players-start-btn');
+        document.getElementById('game-players-id').innerText = gameObj.getId();
 
         var params = getJsonFromUrl();
-
         if (params['master']) {
             startBtn.removeClass('hide');
         }
