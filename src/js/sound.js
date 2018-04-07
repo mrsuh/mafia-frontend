@@ -8,6 +8,9 @@ var Sound = function () {
 
     this.silence = 'audio/silence.mp3' + version;
     this.game_start = 'audio/game_start.mp3' + version;
+    this.out = 'audio/out.mp3' + version;
+    this.citizen_win = 'audio/citizen_win.mp3' + version;
+    this.mafia_win = 'audio/mafia_win.mp3' + version;
     this.citizens_greeting_start = 'audio/citizens_greeting_start.mp3' + version;
     this.citizens_greeting_end = 'audio/citizens_greeting_end.mp3' + version;
     this.day_start = 'audio/day_start.mp3' + version;
@@ -16,7 +19,6 @@ var Sound = function () {
     this.mafia_end = 'audio/mafia_end.mp3' + version;
     this.court_start = 'audio/court_start.mp3' + version;
     this.court_end = 'audio/court_end.mp3' + version;
-    this.court_out_one = 'audio/court_out_one.mp3' + version;
     this.court_out_nobody = 'audio/court_out_nobody.mp3' + version;
     this.doctor_start = 'audio/doctor_start.mp3' + version;
     this.doctor_end = 'audio/doctor_end.mp3' + version;//todo
@@ -49,7 +51,9 @@ Sound.prototype.WarmCache = function () {
         this.mafia_end,
         this.court_start,
         this.court_end,
-        this.court_out_one,
+        this.out,
+        this.citizen_win,
+        this.mafia_win,
         this.court_out_nobody,
         this.doctor_start,
         this.doctor_end,
@@ -139,8 +143,16 @@ Sound.prototype.courtEnd = function (callback, delay) {
     this.Play(this.court_end, callback, delay);
 };
 
-Sound.prototype.courtOutOne = function (callback, delay) {
-    this.Play(this.court_out_one, callback, delay);
+Sound.prototype.playerOut = function (callback, delay) {
+    this.Play(this.out, callback, delay);
+};
+
+Sound.prototype.mafiaWin = function (callback, delay) {
+    this.Play(this.mafia_win, callback, delay);
+};
+
+Sound.prototype.citizenWin = function (callback, delay) {
+    this.Play(this.citizen_win, callback, delay);
 };
 
 Sound.prototype.courtOutNobody = function (callback, delay) {

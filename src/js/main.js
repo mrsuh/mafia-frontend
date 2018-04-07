@@ -76,7 +76,10 @@ var Errors = {
     'you can not do this action with this player several times in a row': 'Вы не можете выполнять это действие несоклько раз подряд',
     'username already exists': 'Пользователь с таким именем уже существует',
     'you have not rights to start game': 'У вас нет прав, чтобы начать игру',
-    'too few players to start game': 'Слишком мало игрогов, чтобы начать игру. Минимальное количество игроков: 3'
+    'too few players to start game': 'Слишком мало игрогов, чтобы начать игру. Минимальное количество игроков: 3',
+    'empty game id': "Введите ID игры",
+    'empty username': "Введите имя пользователя",
+    'invalid gameId': "Неверный ID игры"
 };
 
 var onMessage = function (data) {
