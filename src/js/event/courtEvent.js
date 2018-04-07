@@ -28,7 +28,18 @@ CourtEvent.prototype.startAction = function(msg) {
 CourtEvent.prototype.playersAction = function(msg) {
     console.info('COURT.PLAYERS', msg);
     var players = msg.data;
-    this.view.courtPlayers(players);
+
+    var courtPlayers = [];
+    var playerId = this.game.getUserId();
+    for (var i = 0; i < players.length; i++) {
+        var courtPlayer = players[i];
+        if (parseInt(courtPlayer.id) === playerId) {
+            continue
+        }
+        courtPlayers.push(courtPlayer);
+    }
+
+    this.view.courtPlayers(courtPlayers);
     this.view.active('court-players');
 
     if (testMode) {

@@ -93,10 +93,12 @@ GameEvent.prototype.overAction = function (msg) {
 
     var winner = '';
     switch (msg.data) {
-        case 'CITIZENS':
+        case ROLE_CITIZEN:
+            audio.citizenWin();
             winner = 'Победил город';
             break;
-        case 'MAFIA':
+        case ROLE_MAFIA:
+            audio.mafiaWin();
             winner = 'Победила мафия';
             break;
     }

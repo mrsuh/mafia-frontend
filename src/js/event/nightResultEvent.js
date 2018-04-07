@@ -26,7 +26,7 @@ NightResultEvent.prototype.outAction = function (msg) {
     }
 
     this.view.history(out);
-    this.view.courtResult(out);
+    this.view.nightResult(out);
     this.view.active('night-result');
 
     if (testMode) {
@@ -36,9 +36,9 @@ NightResultEvent.prototype.outAction = function (msg) {
         }.bind(this), testTimeout);
     }
 
-    if (player) {
-        audio.courtOutOne();
-    } else {
+    if (parseInt(player.id) && this.game.getUserId()) {
+        audio.playerOut();
+    } else if (!player) {
         audio.courtOutNobody();
     }
 };

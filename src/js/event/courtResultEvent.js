@@ -38,9 +38,9 @@ CourtResultEvent.prototype.outAction = function (msg) {
         }.bind(this), testTimeout);
     }
 
-    if (player) {
-        audio.courtOutOne();
-    } else {
+    if (player && parseInt(player.id) && this.game.getUserId()) {
+        audio.playerOut();
+    } else if (!player) {
         audio.courtOutNobody();
     }
 };

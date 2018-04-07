@@ -251,6 +251,7 @@ View.prototype.history = function(message) {
 View.prototype.role = function(role) {
     document.getElementById('view-citizens-greeting-role').innerText = getRoleName(role);
     document.getElementById('view-citizens-greeting-pic').src = getRolePicturePath(role);
+    document.getElementById('view-citizens-greeting-description').innerText = getRoleDescription(role);
 };
 
 View.prototype.sheriffResult = function(player) {
