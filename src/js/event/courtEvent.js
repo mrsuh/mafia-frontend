@@ -42,12 +42,12 @@ CourtEvent.prototype.playersAction = function(msg) {
     this.view.courtPlayers(courtPlayers);
     this.view.active('court-players');
 
-    if (testMode) {
+    if (parameters.isTest()) {
         setTimeout(function () {
-            var vote = players[getRandomInt(0, players.length - 1)];
+            var vote = courtPlayers[getRandomInt(0, courtPlayers.length - 1)];
             this.view.active('game-history');
             this.bus.emit('sendmessage', {event: this.event, action: 'vote', data: parseInt(vote.id)});
-        }.bind(this), testTimeout);
+        }.bind(this), parameters.getTestTimeout());
     }
 };
 

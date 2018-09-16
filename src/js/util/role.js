@@ -54,10 +54,10 @@ var getRoleDescription = function (role) {
     var description = '';
     switch (parseInt(role)) {
         case ROLE_CITIZEN:
-            description = 'Ваша задача вычислить всех отрицательных игроков и казнить их';
+            description = 'Ваша задача вычислить всех отрицательных игроков и выгнать их';
             break;
         case ROLE_MAFIA:
-            description = 'Ваша задача вычислить всех положительных игроков и казнить их';
+            description = 'Ваша задача вычислить всех положительных игроков и выгнать их';
             break;
         case ROLE_DOCTOR:
             description = 'Вы можете лечить игроков. Если в эту ночь в игрока стреляли, но вы его лечили, то игрок остается жив';

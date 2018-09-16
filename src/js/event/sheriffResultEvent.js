@@ -20,10 +20,10 @@ SheriffResultEvent.prototype.roleAction = function (msg) {
     this.view.sheriffResult(msg.data);
     this.view.active('sheriff-players-result');
 
-    if (testMode) {
+    if (parameters.isTest()) {
         setTimeout(function () {
             this.view.active('game-history');
             this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
-        }.bind(this), testTimeout);
+        }.bind(this), parameters.getTestTimeout());
     }
 };

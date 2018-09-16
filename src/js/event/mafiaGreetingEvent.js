@@ -36,11 +36,11 @@ MafiaGreetingEvent.prototype.playersAction = function(msg) {
     this.view.mafiaGreetingPlayers(msg.data);
     this.view.active('mafia-greeting-players');
 
-    if (testMode) {
+    if (parameters.isTest()) {
         setTimeout(function () {
             this.view.active('game-history');
             this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
-        }.bind(this), testTimeout);
+        }.bind(this), parameters.getTestTimeout());
     }
 };
 

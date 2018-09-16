@@ -28,12 +28,15 @@ GirlEvent.prototype.playersAction = function(msg) {
     this.view.girlPlayers(players);
     this.view.active('girl-players');
 
-    if (testMode) {
+    if (parameters.isTest()) {
+        console.info('PARAMETERS', parameters, typeof parameters);
+
         setTimeout(function () {
             var vote = players[getRandomInt(0, players.length - 1)];
             this.view.active('game-history');
             this.bus.emit('sendmessage', {event: this.event, action: 'choice', data: parseInt(vote.id)});
-        }.bind(this), testTimeout);
+        }.bind(this), parameters.getTestTimeout());
+
     }
 };
 

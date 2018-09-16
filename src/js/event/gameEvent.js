@@ -41,6 +41,26 @@ var GameEvent = function (game, bus, view) {
     }.bind(this));
 };
 
+GameEvent.prototype.startTest = function (msg) {
+
+    if (!parameters.isMaster() || !parameters.isTest()) {
+        return false;
+    }
+
+    var args =
+        '?test=1' +
+        '&testAutoStart=1' +
+        '&storageUrl=1' +
+        '&gameId=' + this.game.getId() +
+        '&sound=' + (parameters.isSoundEnabled() ? 1 : 0);
+
+    for (var i = 0; i < parameters.getTestUsersCount(); i++) {
+        var username = 'username:' + i;
+        var url = '/' + args + '&username=' + username;
+        window.open(url, '_blank');
+    }
+};
+
 GameEvent.prototype.createAction = function (msg) {
     console.info('GAME.CREATE', msg);
     var data = msg.data;
@@ -52,6 +72,8 @@ GameEvent.prototype.createAction = function (msg) {
     this.view.gameId(data['game']);
     this.view.showGameIdAndUsername();
     this.view.showStartBtn();
+
+    this.startTest();
 };
 
 GameEvent.prototype.joinAction = function (msg) {

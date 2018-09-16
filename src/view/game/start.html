@@ -22,21 +22,19 @@
         var createBtn = document.getElementById('game-start.create-btn');
         var joinBtn = document.getElementById('game-start.join-btn');
 
-        var params = getJsonFromUrl();
-
-        if (params['master']) {
+        if (parameters.isMaster()) {
             document.querySelector('[for=game-start-id-input]').addClass('hide');
             document.getElementById('game-start-id-input').addClass('hide');
             document.getElementById('game-start.join-btn').addClass('hide');
             document.getElementById('game-start.create-btn').removeClass('hide');
         }
 
-        if (params['game'] && 'undefined' !== typeof params['game']) {
-            document.getElementById('game-start-id-input').value = params['game'];
+        if (parameters.getGameId() !== null) {
+            document.getElementById('game-start-id-input').value = parameters.getGameId();
         }
 
-        if (params['player']) {
-            document.getElementById('game-start-username-input').value = params['player'];
+        if (parameters.getUsername().length > 0) {
+            document.getElementById('game-start-username-input').value = parameters.getUsername();
         }
 
         var gameIdInput = document.getElementById('game-start-id-input');

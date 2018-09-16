@@ -6,7 +6,24 @@ Party game modelling a conflict between an informed minority, the mafia, and an 
 
 ## Installation
 ```bash
-sh bin/deploy.sh
+sh bin/build.sh
+```
+
+## Docker
+
+#### Build
+```
+docker build -p mafia-frontend .
+```
+
+#### Run
+```
+docker run mafia-frontend
+```
+
+#### Run from Hub
+```
+docker run mrsuh/mafia-frontend
 ```
 
 ## Config
@@ -16,6 +33,17 @@ var config = {
     wsserver: 'ws://server.com:9090'
 };
 ````
+
+## URL Parameters
+* master - player master for create game
+* sound - off/on
+* test
+* testUsersCount
+* testAutoStart
+* testTimeout
+* gameId
+* username
+* storageUrl
 
 ## Messages
 ````text

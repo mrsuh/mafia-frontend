@@ -30,12 +30,12 @@ DoctorEvent.prototype.playersAction = function(msg) {
     this.view.doctorPlayers(players);
     this.view.active('doctor-players');
 
-    if (testMode) {
+    if (parameters.isTest()) {
         setTimeout(function () {
             var vote = players[getRandomInt(0, players.length - 1)];
             this.view.active('game-history');
             this.bus.emit('sendmessage', {event: this.event, action: 'choice', data: parseInt(vote.id)});
-        }.bind(this), testTimeout);
+        }.bind(this), parameters.getTestTimeout());
     }
 };
 
