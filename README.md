@@ -6,16 +6,63 @@ Party game modelling a conflict between an informed minority, the mafia, and an 
 
 ## Installation
 ```bash
-sh bin/deploy.sh
+sh bin/build.sh
+```
+
+## Docker
+
+#### Build
+```
+docker build -p mafia-frontend .
+```
+
+#### Run
+```
+docker run mafia-frontend
+```
+
+#### Run from Hub
+```
+docker run mrsuh/mafia-frontend
 ```
 
 ## Config
 app/config.js
 ````js
 var config = {
-    wsserver: 'ws://server.com:9090'
+    wsserver: 'ws://server.com:8000'
 };
 ````
+
+## URL Parameters
+* master - is master of game
+* sound - enable sound
+* test - test/bot mode
+* testUsersCount
+* testAutoStart - auto start testing
+* testTimeout - timeout(seconds) between bot actions
+* gameId
+* username
+* storageUrl - store game data to URL or LocalStorage
+
+
+## Examples
+
+#### Run tests/autoplay
+```
+http://127.0.0.1:9000?master=1&sound=0&test=1&testUsersCount=5&testTimeout=3
+```
+
+#### Run game as master
+```
+http://127.0.0.1:9000?master=1
+```
+
+#### Join to game
+```
+http://127.0.0.1:9000?master=1
+```
+
 
 ## Messages
 ````text

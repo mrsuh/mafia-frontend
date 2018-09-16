@@ -1,19 +1,16 @@
 'use strict';
 
-var params = getJsonFromUrl();
-
+var parameters = new Parameters(getJsonFromUrl());
 var bus = new EventEmitter();
 
-var gameObj = new Game(parseInt(params['storage']) === 0);
+var gameObj = new Game(parameters.isStorageUrl());
 
 var view = new View('app');
 var audio = new Sound();
-audio.setEnable(params['sound'] !== 'off');
-
-var testMode = !!params['test'];
-var testTimeout = params['testTimeout'] ? params['testTimeout'] : 500;
+audio.setEnable(parameters.isSoundEnabled());
 
 new GameEvent(gameObj, bus, view);
+new GameStartEvent(gameObj, bus, view);
 new CitizensGreetingEvent(gameObj, bus, view);
 new DayEvent(gameObj, bus, view);
 new NightEvent(gameObj, bus, view);
@@ -27,12 +24,22 @@ new SheriffEvent(gameObj, bus, view);
 new SheriffResultEvent(gameObj, bus, view);
 new GirlEvent(gameObj, bus, view);
 
+var testAutoStart = function () {
+    var gameId = parseInt(parameters.getGameId());
+    var username = parameters.getUsername();
+    var testAutoStart = parameters.isTestAutoStart();
+    if (testAutoStart && gameId && username) {
+        bus.emit('view.game-start.join', {game_id: gameId, username: username})
+    }
+};
+
 var ws = function () {
     console.info('ws connecting...');
     var conn = new WebSocket(config.wsserver);
     conn.onopen = function (e) {
         console.log("ws connected");
         reconnect();
+        testAutoStart();
     };
 
     conn.onmessage = function (e) {

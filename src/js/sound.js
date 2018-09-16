@@ -35,6 +35,10 @@ Sound.prototype.setEnable = function (enable) {
     this.enable = enable;
 };
 
+Sound.prototype.isEnabled = function () {
+    return this.enable;
+};
+
 Sound.prototype.Init = function () {
     this.Play(this.silence);
 };

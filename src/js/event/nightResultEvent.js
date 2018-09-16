@@ -29,11 +29,11 @@ NightResultEvent.prototype.outAction = function (msg) {
     this.view.nightResult(out);
     this.view.active('night-result');
 
-    if (testMode) {
+    if (parameters.isTest()) {
         setTimeout(function () {
             this.view.active('game-history');
             this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
-        }.bind(this), testTimeout);
+        }.bind(this), parameters.getTestTimeout());
     }
 
     if (!player) {

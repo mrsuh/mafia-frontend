@@ -36,12 +36,12 @@ CitizensGreetingEvent.prototype.roleAction = function(msg) {
     this.view.role(role);
     this.view.active(this.event + '-role');
 
-    if (testMode) {
+    if (parameters.isTest()) {
         this.view.showRole();
         setTimeout(function () {
             this.bus.emit('sendmessage', {event: this.event, action: 'accept'});
             this.view.active('game-history');
-        }.bind(this), testTimeout);
+        }.bind(this), parameters.getTestTimeout());
     }
 };
 
