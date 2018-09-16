@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+    mafia-frontend:
+        image: mrsuh/mafia-frontend:latest
+        container_name: mafia_frontend
+        ports:
+            - 9000:80
+
+    mafia-backend:
+        image: mrsuh/mafia-backend:latest
+        container_name: mafia_backend
+        ports:
+            - 8000:8000
