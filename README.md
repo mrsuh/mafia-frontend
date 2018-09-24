@@ -2,7 +2,7 @@
 
 Party game modelling a conflict between an informed minority, the mafia, and an uninformed majority, the innocents
 
-![Screen](/screen.png)
+![Screen](/pic.png)
 
 ## Installation
 ```bash
