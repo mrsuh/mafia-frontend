@@ -6,7 +6,7 @@ services:
         image: mrsuh/mafia-frontend:latest
         container_name: mafia_frontend
         ports:
-            - 9000:80
+            - 9080:80
 
     mafia-backend:
         image: mrsuh/mafia-backend:latest
